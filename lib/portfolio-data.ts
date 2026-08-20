@@ -31,7 +31,7 @@ export const copy = {
     findMe: "Encuéntrame en",
     identityRole: "Full Stack Developer",
     identityLine: "Frontend · Backend · Cloud & DevOps",
-    photoPending: "Fotografía profesional pendiente",
+    photoPending: "Fotografía profesional",
     metrics: [
       ["1.er", "lugar · Smart Projects 2025"],
       ["16×", "menos latencia usando Redis"],
@@ -93,7 +93,7 @@ export const copy = {
     findMe: "Find me on",
     identityRole: "Full Stack Developer",
     identityLine: "Frontend · Backend · Cloud & DevOps",
-    photoPending: "Professional photo pending",
+    photoPending: "Professional portrait",
     metrics: [
       ["1st", "place · Smart Projects 2025"],
       ["16×", "lower latency using Redis"],

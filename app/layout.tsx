@@ -17,7 +17,7 @@ export async function generateMetadata(): Promise<Metadata> {
     title,
     description,
     icons: { icon: "/favicon.svg", shortcut: "/favicon.svg" },
-    openGraph: { title, description, type: "website", images: [{ url: image, width: 1732, height: 908, alt: "Miguel Angel Choque Garcia — Full Stack Developer" }] },
+    openGraph: { title, description, type: "website", images: [{ url: image, width: 1731, height: 909, alt: "Miguel Angel Choque Garcia — Full Stack Developer" }] },
     twitter: { card: "summary_large_image", title, description, images: [image] },
   };
 }

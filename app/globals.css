@@ -82,13 +82,18 @@ h1 strong { display: block; margin-top: .15em; color: var(--primary); font-weigh
 .portrait-stage { height: 540px; display: grid; place-items: center; position: relative; z-index: 2; }
 .portrait-halo { position: absolute; width: 470px; height: 470px; border: 1px dashed rgba(39, 215, 243, .19); border-radius: 50%; animation: shape-rotate 24s linear infinite reverse; }
 .portrait-card { width: min(370px, 92%); height: 490px; padding: 26px; display: flex; flex-direction: column; justify-content: space-between; position: relative; overflow: hidden; border: 1px solid rgba(57, 135, 255, .36); border-radius: 34px; background: linear-gradient(180deg, transparent 52%, rgba(5, 9, 20, .96)), radial-gradient(circle at 50% 33%, #204d74, #0d263d 48%, #091521 76%); box-shadow: 0 36px 90px rgba(0, 0, 0, .4), inset 0 0 70px rgba(57, 135, 255, .08); }
-.portrait-card::before { content: ""; position: absolute; inset: 0; background: linear-gradient(rgba(39, 215, 243, .055) 1px, transparent 1px), linear-gradient(90deg, rgba(39, 215, 243, .055) 1px, transparent 1px); background-size: 32px 32px; mask-image: linear-gradient(to bottom, black, transparent 76%); }
-.portrait-status { align-self: flex-start; padding: 7px 10px; border: 1px solid rgba(39, 215, 243, .25); border-radius: 999px; background: rgba(5, 9, 20, .55); color: var(--accent); font: 600 10px var(--font-geist-mono), monospace; }
-.portrait-initials { align-self: center; position: relative; color: rgba(237, 245, 255, .9); font: 780 92px var(--font-geist-mono), monospace; letter-spacing: -.1em; text-shadow: 0 16px 40px rgba(0, 0, 0, .3); }
-.portrait-identity { position: relative; display: grid; gap: 8px; }
+.portrait-card::before { content: ""; position: absolute; z-index: 1; inset: 0; background: linear-gradient(rgba(39, 215, 243, .055) 1px, transparent 1px), linear-gradient(90deg, rgba(39, 215, 243, .055) 1px, transparent 1px); background-size: 32px 32px; mask-image: linear-gradient(to bottom, black, transparent 76%); pointer-events: none; }
+.portrait-photo { position: absolute; z-index: 0; inset: 0; display: grid; place-items: center; }
+.portrait-photo::after { content: ""; position: absolute; z-index: 1; inset: 0; background: linear-gradient(180deg, rgba(5, 9, 20, .02) 28%, rgba(5, 9, 20, .3) 58%, rgba(5, 9, 20, .98) 92%); pointer-events: none; }
+.portrait-photo-image { object-fit: cover; object-position: center 18%; opacity: 0; transition: opacity .35s ease; }
+.portrait-photo.is-loaded .portrait-photo-image { opacity: 1; }
+.portrait-status { align-self: flex-start; z-index: 2; padding: 7px 10px; border: 1px solid rgba(39, 215, 243, .25); border-radius: 999px; background: rgba(5, 9, 20, .55); color: var(--accent); font: 600 10px var(--font-geist-mono), monospace; }
+.portrait-initials { z-index: 2; color: rgba(237, 245, 255, .9); font: 780 92px var(--font-geist-mono), monospace; letter-spacing: -.1em; text-shadow: 0 16px 40px rgba(0, 0, 0, .3); transition: opacity .25s ease; }
+.portrait-photo.is-loaded .portrait-initials { opacity: 0; }
+.portrait-identity { z-index: 2; position: relative; display: grid; gap: 8px; }
 .portrait-identity strong { font-size: 26px; line-height: 1.04; letter-spacing: -.045em; }
 .portrait-identity span { color: #9fb4c6; font: 550 10px var(--font-geist-mono), monospace; }
-.portrait-card small { position: absolute; right: 24px; top: 29px; color: #7892a7; font-size: 9px; writing-mode: vertical-rl; }
+.portrait-card small { position: absolute; z-index: 2; right: 24px; top: 29px; color: #7892a7; font-size: 9px; writing-mode: vertical-rl; }
 .floating-chip { position: absolute; padding: 10px 13px; border: 1px solid rgba(39, 215, 243, .22); border-radius: 10px; background: rgba(5, 12, 23, .82); backdrop-filter: blur(13px); color: #aec7d9; font: 600 10px var(--font-geist-mono), monospace; box-shadow: 0 15px 38px rgba(0, 0, 0, .25); animation: float 4s ease-in-out infinite; }
 .chip-one { top: 16%; right: -2%; }.chip-two { bottom: 22%; left: -5%; animation-delay: -1.5s; }.chip-three { bottom: 8%; right: 3%; animation-delay: -2.7s; }
 .metrics { grid-column: 1 / -1; display: grid; grid-template-columns: repeat(4, 1fr); margin: 84px 0 0; border-top: 1px solid var(--line); border-bottom: 1px solid var(--line); position: relative; z-index: 2; }

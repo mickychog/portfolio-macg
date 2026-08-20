@@ -30,6 +30,7 @@ type Theme = "light" | "dark";
 const navigationIds = ["inicio", "stack", "sobre-mi", "proyectos", "experiencia", "formacion", "charlas", "contacto"];
 const canonicalFilters = ["Todos", "Backend", "Full Stack", "IA y datos", "Cloud & DevOps"];
 const whatsappUrl = "https://wa.me/59172084428?text=Hola%20Miguel%2C%20vi%20tu%20portafolio%20y%20me%20gustar%C3%ADa%20conversar%20contigo.";
+const profileImagePath = "/images/profile.webp";
 const cardIcons: Record<string, IconType> = {
   frontend: FaCode,
   backend: FaServer,
@@ -65,6 +66,7 @@ export function Portfolio({ turnstileSiteKey }: { turnstileSiteKey?: string }) {
   const [selectedCertificate, setSelectedCertificate] = useState<Certificate | null>(null);
   const [menuOpen, setMenuOpen] = useState(false);
   const [formStatus, setFormStatus] = useState("");
+  const [profileImageLoaded, setProfileImageLoaded] = useState(false);
   const t = copy[locale];
 
   useEffect(() => {
@@ -175,8 +177,20 @@ export function Portfolio({ turnstileSiteKey }: { turnstileSiteKey?: string }) {
         <div className="portrait-stage hero-enter hero-enter-delay" aria-label={locale === "es" ? "Tarjeta profesional de Miguel" : "Miguel's professional card"}>
           <div className="portrait-halo" aria-hidden="true" />
           <div className="portrait-card">
+            <div className={`portrait-photo${profileImageLoaded ? " is-loaded" : ""}`}>
+              <Image
+                className="portrait-photo-image"
+                src={profileImagePath}
+                alt={locale === "es" ? "Fotografía profesional de Miguel Angel Choque Garcia" : "Professional portrait of Miguel Angel Choque Garcia"}
+                fill
+                priority
+                sizes="(max-width: 720px) 92vw, 370px"
+                onLoad={() => setProfileImageLoaded(true)}
+                onError={() => setProfileImageLoaded(false)}
+              />
+              <span className="portrait-initials" aria-hidden="true">MC</span>
+            </div>
             <span className="portrait-status">{t.identityRole}</span>
-            <span className="portrait-initials" aria-hidden="true">MC</span>
             <div className="portrait-identity"><strong>Miguel Angel<br />Choque Garcia</strong><span>{t.identityLine}</span></div>
             <small>{t.photoPending}</small>
           </div>
