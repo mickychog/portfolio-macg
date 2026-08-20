@@ -3,6 +3,8 @@
 import { FormEvent, useEffect, useMemo, useState } from "react";
 import Script from "next/script";
 import Image from "next/image";
+import { FaGithub, FaLinkedin, FaWhatsapp } from "react-icons/fa";
+import { SiGmail } from "react-icons/si";
 import {
   approach,
   certificates,
@@ -11,12 +13,12 @@ import {
   education,
   experiences,
   heroTechnologies,
-  localizeManaged,
+  localizeCertificate,
   projects,
   skillGroups,
   talkTopics,
   type Locale,
-  type ManagedItem,
+  type Certificate,
 } from "@/lib/portfolio-data";
 import { MotionEffects } from "./MotionEffects";
 import { MeteorCanvas } from "./MeteorCanvas";
@@ -25,12 +27,13 @@ type Theme = "light" | "dark";
 
 const navigationIds = ["inicio", "stack", "sobre-mi", "proyectos", "experiencia", "formacion", "charlas", "contacto"];
 const canonicalFilters = ["Todos", "Backend", "Full Stack", "IA y datos", "Cloud & DevOps"];
+const whatsappUrl = "https://wa.me/59172084428?text=Hola%20Miguel%2C%20vi%20tu%20portafolio%20y%20me%20gustar%C3%ADa%20conversar%20contigo.";
 
-export function Portfolio({ managedItems, turnstileSiteKey }: { managedItems: ManagedItem[]; turnstileSiteKey?: string }) {
+export function Portfolio({ turnstileSiteKey }: { turnstileSiteKey?: string }) {
   const [locale, setLocale] = useState<Locale>("es");
   const [theme, setTheme] = useState<Theme>("dark");
   const [filterIndex, setFilterIndex] = useState(0);
-  const [selectedCertificate, setSelectedCertificate] = useState<ManagedItem | null>(null);
+  const [selectedCertificate, setSelectedCertificate] = useState<Certificate | null>(null);
   const [menuOpen, setMenuOpen] = useState(false);
   const [formStatus, setFormStatus] = useState("");
   const t = copy[locale];
@@ -68,10 +71,7 @@ export function Portfolio({ managedItems, turnstileSiteKey }: { managedItems: Ma
     return active === "Todos" ? projects : projects.filter((project) => project.type === active);
   }, [filterIndex]);
 
-  const allCertificates = [...certificates, ...managedItems.filter((item) => item.type === "certificate" || item.type === "course")].map((item) => localizeManaged(item, locale));
-  const allExperiences = managedItems.filter((item) => item.type === "experience").map((item) => localizeManaged(item, locale));
-  const managedProjects = managedItems.filter((item) => item.type === "project").map((item) => localizeManaged(item, locale));
-  const managedTalks = managedItems.filter((item) => item.type === "talk").map((item) => localizeManaged(item, locale));
+  const allCertificates = certificates.map((item) => localizeCertificate(item, locale));
 
   const submitContact = async (event: FormEvent<HTMLFormElement>) => {
     event.preventDefault();
@@ -127,7 +127,7 @@ export function Portfolio({ managedItems, turnstileSiteKey }: { managedItems: Ma
             <a className="secondary-button has-tooltip" data-tooltip={t.tooltips.contact} href="#contacto">{t.contactButton}</a>
             <a className="text-button has-tooltip" data-tooltip={t.tooltips.cv} href="/cv-miguel-choque.pdf" target="_blank" rel="noreferrer">{t.download}</a>
           </div>
-          <div className="social-row"><span>{t.findMe}</span><a className="has-tooltip" data-tooltip={t.tooltips.github} href="https://github.com/mickychog" target="_blank" rel="noreferrer">GitHub ↗</a><a className="has-tooltip" data-tooltip={t.tooltips.linkedin} href="https://linkedin.com/in/miguel-choque-garcia" target="_blank" rel="noreferrer">LinkedIn ↗</a></div>
+          <div className="social-row"><span>{t.findMe}</span><a className="has-tooltip" data-tooltip={t.tooltips.github} href="https://github.com/mickychog" target="_blank" rel="noreferrer"><FaGithub className="brand-icon" aria-hidden="true" />GitHub</a><a className="has-tooltip" data-tooltip={t.tooltips.linkedin} href="https://linkedin.com/in/miguel-choque-garcia" target="_blank" rel="noreferrer"><FaLinkedin className="brand-icon" aria-hidden="true" />LinkedIn</a><a className="has-tooltip" data-tooltip={t.tooltips.email} href="mailto:mickychog@gmail.com"><SiGmail className="brand-icon" aria-hidden="true" />Gmail</a></div>
         </div>
         <div className="portrait-stage hero-enter hero-enter-delay" aria-label={locale === "es" ? "Tarjeta profesional de Miguel" : "Miguel's professional card"}>
           <div className="portrait-halo" aria-hidden="true" />
@@ -161,7 +161,6 @@ export function Portfolio({ managedItems, turnstileSiteKey }: { managedItems: Ma
         <div className="filter-tabs" role="group" aria-label={locale === "es" ? "Filtrar proyectos" : "Filter projects"}>{t.filters.map((label, index) => <button type="button" className={filterIndex === index ? "active" : ""} onClick={() => setFilterIndex(index)} key={label}>{label}</button>)}</div>
         <div className="project-grid">
           {filteredProjects.map((project, index) => <article className="project-card" key={project.name} data-reveal><div className="card-number">0{index + 1}</div><p className="project-role">{project.role[locale]}</p><h3>{project.name}</h3><p>{project.description[locale]}</p><strong>{project.result[locale]}</strong><ul className="tag-list" aria-label="Technologies">{project.stack.map((tag) => <li key={tag}>{tag}</li>)}</ul></article>)}
-          {filterIndex === 0 && managedProjects.map((item) => <article className="project-card" key={`managed-${item.id}`} data-reveal><p className="project-role">{item.organization}</p><h3>{item.title}</h3><p>{item.summary}</p><ul className="tag-list">{item.tags.map((tag) => <li key={tag}>{tag}</li>)}</ul></article>)}
         </div>
         {!filteredProjects.length && <p className="empty-state">{locale === "es" ? "No hay proyectos publicados en esta categoría todavía." : "No projects have been published in this category yet."}</p>}
       </section>
@@ -170,7 +169,6 @@ export function Portfolio({ managedItems, turnstileSiteKey }: { managedItems: Ma
         <p className="section-index" data-reveal>04 / {locale === "es" ? "Trayectoria" : "Journey"}</p><h2 id="experience-title" data-reveal>{t.experienceTitle}</h2>
         <div className="timeline">
           {experiences.map((experience) => <article className="timeline-item" key={`${experience.company}-${experience.period.es}`} data-reveal><time>{experience.period[locale]}</time><div className="timeline-dot" /><div><span className="category">{experience.category}</span><h3>{experience.role[locale]}</h3><h4>{experience.company}</h4><p>{experience.description[locale]}</p></div></article>)}
-          {allExperiences.map((item) => <article className="timeline-item" key={`managed-exp-${item.id}`} data-reveal><time>{item.period}</time><div className="timeline-dot" /><div><span className="category">{item.category}</span><h3>{item.title}</h3><h4>{item.organization}</h4><p>{item.summary}</p></div></article>)}
         </div>
       </section>
 
@@ -183,20 +181,20 @@ export function Portfolio({ managedItems, turnstileSiteKey }: { managedItems: Ma
       <section className="section talks-section" id="charlas" aria-labelledby="talks-title">
         <MeteorCanvas />
         <div className="talks-heading" data-reveal><div><p className="section-index">06 / {locale === "es" ? "Charlas y comunidad" : "Speaking & community"}</p><h2 id="talks-title">{t.talksTitle}</h2><p className="section-lead">{t.talksLead}</p><a className="secondary-button has-tooltip" data-tooltip={t.tooltips.linkedin} href="https://linkedin.com/in/miguel-choque-garcia" target="_blank" rel="noreferrer">{t.talksCta} ↗</a></div><div className="talk-feature"><span>{t.talksSoon}</span><strong>MACG / TALKS</strong><small>Full Stack · Cloud · AI</small></div></div>
-        <div className="talk-grid">{talkTopics.map((topic) => <article key={topic.title.es} data-reveal><span>{topic.icon}</span><div><h3>{topic.title[locale]}</h3><p>{topic.text[locale]}</p></div><small>{t.talksSoon}</small></article>)}{managedTalks.map((talk) => <article key={`talk-${talk.id}`} data-reveal><span>◈</span><div><h3>{talk.title}</h3><p>{talk.summary}</p></div><small>{talk.period || talk.organization}</small></article>)}</div>
+        <div className="talk-grid">{talkTopics.map((topic) => <article key={topic.title.es} data-reveal><span>{topic.icon}</span><div><h3>{topic.title[locale]}</h3><p>{topic.text[locale]}</p></div><small>{t.talksSoon}</small></article>)}</div>
       </section>
 
       <section className="contact section" id="contacto" aria-labelledby="contact-title">
-        <div className="contact-copy" data-reveal><p className="section-index">07 / {locale === "es" ? "Contacto" : "Contact"}</p><h2 id="contact-title">{t.contactTitle}</h2><p className="section-lead">{t.contactLead}</p><div className="contact-links"><a className="has-tooltip" data-tooltip={t.tooltips.email} href="mailto:mickychog@gmail.com">mickychog@gmail.com</a><a className="has-tooltip" data-tooltip={t.tooltips.linkedin} href="https://linkedin.com/in/miguel-choque-garcia" target="_blank" rel="noreferrer">LinkedIn ↗</a><a href="tel:+59172084428">+591 72084428</a></div></div>
+        <div className="contact-copy" data-reveal><p className="section-index">07 / {locale === "es" ? "Contacto" : "Contact"}</p><h2 id="contact-title">{t.contactTitle}</h2><p className="section-lead">{t.contactLead}</p><div className="contact-links"><a className="has-tooltip" data-tooltip={t.tooltips.email} href="mailto:mickychog@gmail.com"><SiGmail className="brand-icon" aria-hidden="true" />mickychog@gmail.com</a><a className="has-tooltip" data-tooltip={t.tooltips.linkedin} href="https://linkedin.com/in/miguel-choque-garcia" target="_blank" rel="noreferrer"><FaLinkedin className="brand-icon" aria-hidden="true" />LinkedIn</a><a className="has-tooltip" data-tooltip={t.tooltips.whatsapp} href={whatsappUrl} target="_blank" rel="noreferrer"><FaWhatsapp className="brand-icon" aria-hidden="true" />+591 72084428</a></div></div>
         <form className="contact-form" onSubmit={submitContact} data-reveal><label>{t.form[0]}<input required name="name" autoComplete="name" /></label><label>{t.form[1]}<input required name="email" type="email" autoComplete="email" /></label><label>{t.form[2]}<input required name="subject" /></label><label>{t.form[3]}<textarea required name="message" rows={5} minLength={20} /></label><input name="website" className="honeypot" tabIndex={-1} autoComplete="off" aria-hidden="true" />{turnstileSiteKey && <><Script src="https://challenges.cloudflare.com/turnstile/v0/api.js" strategy="lazyOnload" /><div className="cf-turnstile" data-sitekey={turnstileSiteKey} data-theme="auto" /></>}<button className="primary-button has-tooltip" data-tooltip={locale === "es" ? "Enviar el mensaje a mi correo" : "Send the message to my email"} type="submit">{t.form[4]} <span aria-hidden="true">↗</span></button><p className="form-status" aria-live="polite">{formStatus}</p></form>
       </section>
 
       <footer className="site-footer">
-        <div className="footer-main"><div className="footer-identity"><span className="brand-mark">MC</span><h2>Miguel Angel<br />Choque Garcia</h2><p>{t.footerRole}</p><small>{t.footerLine}</small></div><div className="footer-group"><strong>{t.footerSocial}</strong><a href="https://github.com/mickychog" target="_blank" rel="noreferrer">GitHub ↗</a><a href="https://linkedin.com/in/miguel-choque-garcia" target="_blank" rel="noreferrer">LinkedIn ↗</a><a href="mailto:mickychog@gmail.com">Email ↗</a></div><div className="footer-group"><strong>{t.footerNav}</strong>{navigationIds.slice(1).map((id, index) => <a href={`#${id}`} key={id}>{t.nav[index + 1]}</a>)}</div></div>
+        <div className="footer-main"><div className="footer-identity"><span className="brand-mark">MC</span><h2>Miguel Angel<br />Choque Garcia</h2><p>{t.footerRole}</p><small>{t.footerLine}</small></div><div className="footer-group"><strong>{t.footerSocial}</strong><a href="https://github.com/mickychog" target="_blank" rel="noreferrer"><FaGithub className="brand-icon" aria-hidden="true" />GitHub</a><a href="https://linkedin.com/in/miguel-choque-garcia" target="_blank" rel="noreferrer"><FaLinkedin className="brand-icon" aria-hidden="true" />LinkedIn</a><a href="mailto:mickychog@gmail.com"><SiGmail className="brand-icon" aria-hidden="true" />Gmail</a><a href={whatsappUrl} target="_blank" rel="noreferrer"><FaWhatsapp className="brand-icon" aria-hidden="true" />WhatsApp</a></div><div className="footer-group"><strong>{t.footerNav}</strong>{navigationIds.slice(1).map((id, index) => <a href={`#${id}`} key={id}>{t.nav[index + 1]}</a>)}</div></div>
         <div className="footer-bottom"><span>© {new Date().getFullYear()} Miguel Angel Choque Garcia</span><span>{t.footerMade} 🇧🇴</span><a href="#inicio">{locale === "es" ? "Volver arriba" : "Back to top"} ↑</a></div>
       </footer>
 
-      {selectedCertificate && <div className="modal-backdrop"><section className="certificate-modal" role="dialog" aria-modal="true" aria-labelledby="certificate-title"><button className="modal-close" type="button" onClick={() => setSelectedCertificate(null)} aria-label={t.close}>×</button><p className="section-index">{locale === "es" ? "Credencial" : "Credential"}</p><h2 id="certificate-title">{selectedCertificate.title}</h2><h3>{selectedCertificate.organization}</h3><p>{selectedCertificate.summary}</p><ul className="tag-list">{selectedCertificate.tags.map((tag) => <li key={tag}>{tag}</li>)}</ul>{selectedCertificate.fileKey ? <div className="certificate-image-wrap"><Image src={`/api/media/${encodeURIComponent(selectedCertificate.fileKey)}`} alt={`${selectedCertificate.title} — ${selectedCertificate.organization}`} width={1400} height={900} unoptimized /></div> : <div className="certificate-preview"><span aria-hidden="true">◇</span><p>{locale === "es" ? "La imagen verificable del certificado se añadirá desde el panel administrativo." : "The certificate image can be added from the admin panel."}</p></div>}{selectedCertificate.credentialUrl && <a className="primary-button" href={selectedCertificate.credentialUrl} target="_blank" rel="noreferrer">{locale === "es" ? "Ver credencial verificada" : "View verified credential"}</a>}</section></div>}
+      {selectedCertificate && <div className="modal-backdrop"><section className="certificate-modal" role="dialog" aria-modal="true" aria-labelledby="certificate-title"><button className="modal-close" type="button" onClick={() => setSelectedCertificate(null)} aria-label={t.close}>×</button><p className="section-index">{locale === "es" ? "Credencial" : "Credential"}</p><h2 id="certificate-title">{selectedCertificate.title}</h2><h3>{selectedCertificate.organization}</h3><p>{selectedCertificate.summary}</p><ul className="tag-list">{selectedCertificate.tags.map((tag) => <li key={tag}>{tag}</li>)}</ul>{selectedCertificate.imagePath ? <div className="certificate-image-wrap"><Image src={selectedCertificate.imagePath} alt={`${selectedCertificate.title} — ${selectedCertificate.organization}`} width={1400} height={900} /></div> : <div className="certificate-preview"><span aria-hidden="true">◇</span><p>{locale === "es" ? "La imagen verificable del certificado estará disponible próximamente." : "The verifiable certificate image will be available soon."}</p></div>}{selectedCertificate.credentialUrl && <a className="primary-button" href={selectedCertificate.credentialUrl} target="_blank" rel="noreferrer">{locale === "es" ? "Ver credencial verificada" : "View verified credential"}</a>}</section></div>}
     </main>
   );
 }

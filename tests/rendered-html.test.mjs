@@ -16,5 +16,7 @@ test("builds the portfolio with its core identity and production entrypoint", as
   assert.match(data, /Lo que aporto al equipo/);
   assert.match(data, /Compartir lo aprendido también es construir/);
   assert.match(data, /Construyamos algo sólido/);
+  assert.match(portfolio, /wa\.me\/59172084428/);
+  assert.doesNotMatch(portfolio, /managedItems|\/api\/admin|\/api\/media/);
   assert.doesNotMatch(portfolio, /codex-preview|SkeletonPreview|Your site is taking shape/);
 });

@@ -1,20 +1,18 @@
 export type Locale = "es" | "en";
 
-export type ManagedItem = {
-  id?: number;
-  type: "project" | "experience" | "course" | "certificate" | "talk";
+export type Certificate = {
   title: string;
-  titleEn?: string | null;
+  titleEn?: string;
   organization: string;
-  organizationEn?: string | null;
+  organizationEn?: string;
   period: string;
-  periodEn?: string | null;
+  periodEn?: string;
   summary: string;
-  summaryEn?: string | null;
+  summaryEn?: string;
   tags: string[];
   category: string;
-  credentialUrl?: string | null;
-  fileKey?: string | null;
+  credentialUrl?: string;
+  imagePath?: string;
 };
 
 export const copy = {
@@ -77,6 +75,7 @@ export const copy = {
       github: "Ver mi código y repositorios",
       linkedin: "Conectar conmigo en LinkedIn",
       email: "Escribirme por correo electrónico",
+      whatsapp: "Enviarme un mensaje por WhatsApp",
     },
   },
   en: {
@@ -138,6 +137,7 @@ export const copy = {
       github: "View my code and repositories",
       linkedin: "Connect with me on LinkedIn",
       email: "Send me an email",
+      whatsapp: "Send me a WhatsApp message",
     },
   },
 } as const;
@@ -164,11 +164,11 @@ export const education = [
   { degree: { es: "Ingeniería Electrónica", en: "Electronic Engineering" }, institution: "USFX", period: "2017 — 2025", status: { es: "Egresado", en: "Graduate" } },
 ];
 
-export const certificates: ManagedItem[] = [
-  { type: "certificate", title: "Especialización Backend Java", titleEn: "Java Backend Specialization", organization: "Oracle ONE · Alura Latam", period: "Julio 2024 · 286 horas", periodEn: "July 2024 · 286 hours", summary: "Java, Spring Boot 3, JPA/Hibernate, seguridad en APIs REST, JUnit y Mockito.", summaryEn: "Java, Spring Boot 3, JPA/Hibernate, REST API security, JUnit and Mockito.", tags: ["Java", "Spring Boot", "Testing"], category: "Backend" },
-  { type: "certificate", title: "Ethical Hacker e Introduction to Cybersecurity", titleEn: "Ethical Hacker and Introduction to Cybersecurity", organization: "Cisco Networking Academy", period: "Sep — Nov 2024", periodEn: "Sep — Nov 2024", summary: "Vectores de ataque, protección de redes, fundamentos CIA y seguridad en APIs.", summaryEn: "Attack vectors, network protection, CIA fundamentals and API security.", tags: ["Cybersecurity", "Networks"], category: "Cloud & DevOps" },
-  { type: "certificate", title: "Cloud Computing e Inteligencia Artificial", titleEn: "Cloud Computing and Artificial Intelligence", organization: "AWS · IBM SkillsBuild", period: "Jun — Sep 2025", periodEn: "Jun — Sep 2025", summary: "Fundamentos de LLMs, IA generativa en la nube, machine learning y ética en IA.", summaryEn: "LLM foundations, cloud generative AI, machine learning and AI ethics.", tags: ["AWS", "Generative AI", "ML"], category: "IA y datos" },
-  { type: "certificate", title: "Desarrollo Full Stack PHP", titleEn: "Full Stack PHP Development", organization: "Innovacode", period: "Diciembre 2023 · 38 horas", periodEn: "December 2023 · 38 hours", summary: "Aplicaciones CRUD con Laravel 10, Vue 3, autenticación y arquitectura MVC.", summaryEn: "CRUD applications with Laravel 10, Vue 3, authentication and MVC architecture.", tags: ["Laravel", "Vue", "PHP"], category: "Full Stack" },
+export const certificates: Certificate[] = [
+  { title: "Especialización Backend Java", titleEn: "Java Backend Specialization", organization: "Oracle ONE · Alura Latam", period: "Julio 2024 · 286 horas", periodEn: "July 2024 · 286 hours", summary: "Java, Spring Boot 3, JPA/Hibernate, seguridad en APIs REST, JUnit y Mockito.", summaryEn: "Java, Spring Boot 3, JPA/Hibernate, REST API security, JUnit and Mockito.", tags: ["Java", "Spring Boot", "Testing"], category: "Backend" },
+  { title: "Ethical Hacker e Introduction to Cybersecurity", titleEn: "Ethical Hacker and Introduction to Cybersecurity", organization: "Cisco Networking Academy", period: "Sep — Nov 2024", periodEn: "Sep — Nov 2024", summary: "Vectores de ataque, protección de redes, fundamentos CIA y seguridad en APIs.", summaryEn: "Attack vectors, network protection, CIA fundamentals and API security.", tags: ["Cybersecurity", "Networks"], category: "Cloud & DevOps" },
+  { title: "Cloud Computing e Inteligencia Artificial", titleEn: "Cloud Computing and Artificial Intelligence", organization: "AWS · IBM SkillsBuild", period: "Jun — Sep 2025", periodEn: "Jun — Sep 2025", summary: "Fundamentos de LLMs, IA generativa en la nube, machine learning y ética en IA.", summaryEn: "LLM foundations, cloud generative AI, machine learning and AI ethics.", tags: ["AWS", "Generative AI", "ML"], category: "IA y datos" },
+  { title: "Desarrollo Full Stack PHP", titleEn: "Full Stack PHP Development", organization: "Innovacode", period: "Diciembre 2023 · 38 horas", periodEn: "December 2023 · 38 hours", summary: "Aplicaciones CRUD con Laravel 10, Vue 3, autenticación y arquitectura MVC.", summaryEn: "CRUD applications with Laravel 10, Vue 3, authentication and MVC architecture.", tags: ["Laravel", "Vue", "PHP"], category: "Full Stack" },
 ];
 
 export const skillGroups = [
@@ -201,7 +201,7 @@ export const talkTopics = [
   { icon: "◉", title: { es: "Rendimiento y DevOps", en: "Performance & DevOps" }, text: { es: "Caché, telemetría y despliegues que reducen incertidumbre.", en: "Caching, telemetry and delivery that reduce uncertainty." } },
 ];
 
-export function localizeManaged(item: ManagedItem, locale: Locale): ManagedItem {
+export function localizeCertificate(item: Certificate, locale: Locale): Certificate {
   if (locale === "es") return item;
   return {
     ...item,
