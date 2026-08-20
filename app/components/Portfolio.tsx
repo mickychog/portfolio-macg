@@ -24,6 +24,7 @@ import {
   FaServer,
   FaShieldHalved,
   FaToolbox,
+  FaTrophy,
 } from "react-icons/fa6";
 import { SiGmail } from "react-icons/si";
 import type { IconType } from "react-icons";
@@ -90,6 +91,13 @@ const cardIcons: Record<string, IconType> = {
   tools: FaToolbox,
   teamwork: FaPeopleGroup,
 };
+
+const metricVisuals = [
+  { icon: FaTrophy, tone: "gold" },
+  { icon: FaGaugeHigh, tone: "cyan" },
+  { icon: FaShieldHalved, tone: "violet" },
+  { icon: FaGraduationCap, tone: "blue" },
+] as const;
 
 function CardIcon({ name }: { name: string }) {
   const Icon = cardIcons[name] ?? FaCode;
@@ -396,12 +404,20 @@ export function Portfolio({ turnstileSiteKey }: { turnstileSiteKey?: string }) {
             locale === "es" ? "Logros destacados" : "Selected outcomes"
           }
         >
-          {t.metrics.map(([value, label]) => (
-            <div key={label}>
-              <dt>{value}</dt>
-              <dd>{label}</dd>
-            </div>
-          ))}
+          {t.metrics.map(([value, label], index) => {
+            const visual = metricVisuals[index] ?? metricVisuals[0];
+            const MetricIcon = visual.icon;
+
+            return (
+              <div className="metric-card" data-tone={visual.tone} key={label}>
+                <span className="metric-icon" aria-hidden="true">
+                  <MetricIcon />
+                </span>
+                <dt>{value}</dt>
+                <dd>{label}</dd>
+              </div>
+            );
+          })}
         </dl>
       </section>
 

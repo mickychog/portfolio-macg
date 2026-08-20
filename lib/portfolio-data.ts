@@ -33,7 +33,7 @@ export const copy = {
     identityLine: "Frontend · Backend · Cloud & DevOps",
     photoPending: "",
     metrics: [
-      ["1.er", "lugar · Smart Projects 2025"],
+      ["1.er lugar", "Smart Projects 2025"],
       ["16×", "menos latencia usando Redis"],
       ["0.99", "AUC-ROC en detección de fraude"],
       ["2", "ingenierías que conectan software y sistemas"],
