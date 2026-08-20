@@ -4,7 +4,7 @@ import { FormEvent, useEffect, useMemo, useState } from "react";
 import Script from "next/script";
 import Image from "next/image";
 import { FaGithub, FaLinkedin, FaWhatsapp } from "react-icons/fa";
-import { FaBrain, FaCloud, FaCode, FaCompassDrafting, FaDatabase, FaGaugeHigh, FaLayerGroup, FaMicrochip, FaServer, FaShieldHalved } from "react-icons/fa6";
+import { FaBrain, FaCertificate, FaChartLine, FaCloud, FaCode, FaCompassDrafting, FaDatabase, FaFlaskVial, FaFolderOpen, FaGaugeHigh, FaGraduationCap, FaLayerGroup, FaMagnifyingGlass, FaMicrochip, FaPeopleGroup, FaPenRuler, FaServer, FaShieldHalved, FaToolbox } from "react-icons/fa6";
 import { SiGmail } from "react-icons/si";
 import type { IconType } from "react-icons";
 import {
@@ -41,6 +41,16 @@ const cardIcons: Record<string, IconType> = {
   architecture: FaCompassDrafting,
   ai: FaBrain,
   performance: FaGaugeHigh,
+  discover: FaMagnifyingGlass,
+  design: FaPenRuler,
+  build: FaCode,
+  validate: FaFlaskVial,
+  measure: FaChartLine,
+  projects: FaFolderOpen,
+  education: FaGraduationCap,
+  certificate: FaCertificate,
+  tools: FaToolbox,
+  teamwork: FaPeopleGroup,
 };
 
 function CardIcon({ name }: { name: string }) {
@@ -176,49 +186,49 @@ export function Portfolio({ turnstileSiteKey }: { turnstileSiteKey?: string }) {
       </section>
 
       <section className="section stack-section" id="stack" aria-labelledby="stack-title">
-        <div className="section-heading" data-reveal><div><p className="section-index">01 / Stack & Skills</p><h2 id="stack-title">{t.stackTitle}</h2><p className="section-lead">{t.stackLead}</p></div></div>
+        <div className="section-heading" data-reveal><div><p className="section-index">Stack & Skills</p><h2 id="stack-title">{t.stackTitle}</h2><p className="section-lead">{t.stackLead}</p></div></div>
         <div className="skill-grid">
           {skillGroups.map((group) => <article className="skill-card" key={group.title.es} data-reveal><div className="skill-card-head"><span><CardIcon name={group.icon} /></span><div><h3>{group.title[locale]}</h3><p>{group.lead[locale]}</p></div></div><ul>{group.items.map((item) => <li key={item}>{item}</li>)}</ul></article>)}
         </div>
-        <div className="secondary-skills" data-reveal><article><span className="category">{t.alsoWork}</span><div>{["Java", "Python", "PHP", "C++", "MySQL", "Firebase", "Swagger"].map((item) => <small key={item}>{item}</small>)}</div></article><article><span className="category">{t.teamwork}</span><div>{["Scrum", "Agile", "Git", "Jira", "Remote", "Documentation"].map((item) => <small key={item}>{item}</small>)}</div></article></div>
+        <div className="secondary-skills" data-reveal><article><header><CardIcon name="tools" /><span className="category">{t.alsoWork}</span></header><div>{["Java", "Python", "PHP", "C++", "MySQL", "Firebase", "Swagger"].map((item) => <small key={item}>{item}</small>)}</div></article><article><header><CardIcon name="teamwork" /><span className="category">{t.teamwork}</span></header><div>{["Scrum", "Agile", "Git", "Jira", "Remote", "Documentation"].map((item) => <small key={item}>{item}</small>)}</div></article></div>
       </section>
 
       <section className="section about-section" id="sobre-mi" aria-labelledby="about-title">
-        <div className="about-intro" data-reveal><div><p className="section-index">02 / {locale === "es" ? "Sobre mí" : "About"}</p><h2 id="about-title">{t.aboutTitle}</h2></div><div className="about-copy">{t.aboutText.map((paragraph) => <p key={paragraph}>{paragraph}</p>)}<div className="focus-row"><span>{t.currentFocus}</span>{["Full Stack", "Cloud & DevOps", "Applied AI"].map((item) => <small key={item}>{item}</small>)}</div></div></div>
+        <div className="about-intro" data-reveal><div><p className="section-index">{locale === "es" ? "Sobre mí" : "About"}</p><h2 id="about-title">{t.aboutTitle}</h2></div><div className="about-copy">{t.aboutText.map((paragraph) => <p key={paragraph}>{paragraph}</p>)}<div className="focus-row"><span>{t.currentFocus}</span>{["Full Stack", "Cloud & DevOps", "Applied AI"].map((item) => <small key={item}>{item}</small>)}</div></div></div>
         <div className="contribution-block"><h3 data-reveal>{t.contributionTitle}</h3><div className="contribution-grid">{contributions.map((item) => <article key={item.title.es} data-reveal><span><CardIcon name={item.icon} /></span><h4>{item.title[locale]}</h4><p>{item.text[locale]}</p></article>)}</div></div>
-        <div className="approach-block" data-reveal><h3>{t.approachTitle}</h3><ol>{approach.map((step) => <li key={step.n}><span>{step.n}</span><strong>{step[locale]}</strong><p>{step.text[locale]}</p></li>)}</ol></div>
+        <div className="approach-block" data-reveal><h3>{t.approachTitle}</h3><ol>{approach.map((step) => <li key={step.n}><div className="approach-step-head"><span className="approach-step-number">{step.n}</span><CardIcon name={step.icon} /></div><strong>{step[locale]}</strong><p>{step.text[locale]}</p></li>)}</ol></div>
       </section>
 
       <section className="section" id="proyectos" aria-labelledby="projects-title">
-        <div className="section-heading" data-reveal><div><p className="section-index">03 / {locale === "es" ? "Trabajo" : "Work"}</p><h2 id="projects-title">{t.projectsTitle}</h2><p className="section-lead">{t.projectsLead}</p></div></div>
+        <div className="section-heading" data-reveal><div><p className="section-index">{locale === "es" ? "Trabajo" : "Work"}</p><h2 id="projects-title">{t.projectsTitle}</h2><p className="section-lead">{t.projectsLead}</p></div></div>
         <div className="filter-tabs" role="group" aria-label={locale === "es" ? "Filtrar proyectos" : "Filter projects"}>{t.filters.map((label, index) => <button type="button" className={filterIndex === index ? "active" : ""} onClick={() => setFilterIndex(index)} key={label}>{label}</button>)}</div>
         <div className="project-grid">
-          {filteredProjects.map((project, index) => <article className="project-card" key={project.name} data-reveal><div className="card-number">0{index + 1}</div><p className="project-role">{project.role[locale]}</p><h3>{project.name}</h3><p>{project.description[locale]}</p><strong>{project.result[locale]}</strong><ul className="tag-list" aria-label="Technologies">{project.stack.map((tag) => <li key={tag}>{tag}</li>)}</ul></article>)}
+          {filteredProjects.map((project) => <article className="project-card" key={project.name} data-reveal><div className="card-corner-icon"><CardIcon name={project.type === "Backend" ? "backend" : project.type === "IA y datos" ? "ai" : project.type === "Cloud & DevOps" ? "cloud" : "fullstack"} /></div><p className="project-role">{project.role[locale]}</p><h3>{project.name}</h3><p>{project.description[locale]}</p><strong>{project.result[locale]}</strong><ul className="tag-list" aria-label="Technologies">{project.stack.map((tag) => <li key={tag}>{tag}</li>)}</ul></article>)}
         </div>
         {!filteredProjects.length && <p className="empty-state">{locale === "es" ? "No hay proyectos publicados en esta categoría todavía." : "No projects have been published in this category yet."}</p>}
       </section>
 
       <section className="section" id="experiencia" aria-labelledby="experience-title">
-        <p className="section-index" data-reveal>04 / {locale === "es" ? "Trayectoria" : "Journey"}</p><h2 id="experience-title" data-reveal>{t.experienceTitle}</h2>
+        <p className="section-index" data-reveal>{locale === "es" ? "Trayectoria" : "Journey"}</p><h2 id="experience-title" data-reveal>{t.experienceTitle}</h2>
         <div className="timeline">
           {experiences.map((experience) => <article className="timeline-item" key={`${experience.company}-${experience.period.es}`} data-reveal><time>{experience.period[locale]}</time><div className="timeline-dot" /><div><span className="category">{experience.category}</span><h3>{experience.role[locale]}</h3><h4>{experience.company}</h4><p>{experience.description[locale]}</p></div></article>)}
         </div>
       </section>
 
       <section className="section" id="formacion" aria-labelledby="education-title">
-        <p className="section-index" data-reveal>05 / {locale === "es" ? "Aprendizaje" : "Learning"}</p><h2 id="education-title" data-reveal>{t.educationTitle}</h2>
-        <div className="education-grid">{education.map((item) => <article className="education-card" key={item.degree.es} data-reveal><span>{item.period}</span><h3>{item.degree[locale]}</h3><p>{item.institution}</p><strong>{item.status[locale]}</strong></article>)}</div>
-        <div className="certificate-grid">{allCertificates.map((certificate, index) => <article className="certificate-card" key={`${certificate.title}-${index}`} data-reveal><div><span>{certificate.organization}</span><h3>{certificate.title}</h3><p>{certificate.period}</p></div><button className="has-tooltip" data-tooltip={certificate.summary} type="button" onClick={() => setSelectedCertificate(certificate)}>{t.certificate} <span aria-hidden="true">↗</span></button></article>)}</div>
+        <p className="section-index" data-reveal>{locale === "es" ? "Aprendizaje" : "Learning"}</p><h2 id="education-title" data-reveal>{t.educationTitle}</h2>
+        <div className="education-grid">{education.map((item) => <article className="education-card" key={item.degree.es} data-reveal><div className="card-heading-icon"><CardIcon name="education" /><span>{item.period}</span></div><h3>{item.degree[locale]}</h3><p>{item.institution}</p><strong>{item.status[locale]}</strong></article>)}</div>
+        <div className="certificate-grid">{allCertificates.map((certificate, index) => <article className="certificate-card" key={`${certificate.title}-${index}`} data-reveal><div><div className="card-heading-icon"><CardIcon name="certificate" /><span>{certificate.organization}</span></div><h3>{certificate.title}</h3><p>{certificate.period}</p></div><button className="has-tooltip" data-tooltip={certificate.summary} type="button" onClick={() => setSelectedCertificate(certificate)}>{t.certificate} <span aria-hidden="true">↗</span></button></article>)}</div>
       </section>
 
       <section className="section talks-section" id="charlas" aria-labelledby="talks-title">
         <MeteorCanvas />
-        <div className="talks-heading" data-reveal><div><p className="section-index">06 / {locale === "es" ? "Charlas y comunidad" : "Speaking & community"}</p><h2 id="talks-title">{t.talksTitle}</h2><p className="section-lead">{t.talksLead}</p><a className="secondary-button has-tooltip" data-tooltip={t.tooltips.linkedin} href="https://linkedin.com/in/miguel-choque-garcia" target="_blank" rel="noreferrer">{t.talksCta} ↗</a></div><div className="talk-feature"><span>{t.talksSoon}</span><strong>MACG / TALKS</strong><small>Full Stack · Cloud · AI</small></div></div>
+        <div className="talks-heading" data-reveal><div><p className="section-index">{locale === "es" ? "Charlas y comunidad" : "Speaking & community"}</p><h2 id="talks-title">{t.talksTitle}</h2><p className="section-lead">{t.talksLead}</p><a className="secondary-button has-tooltip" data-tooltip={t.tooltips.linkedin} href="https://linkedin.com/in/miguel-choque-garcia" target="_blank" rel="noreferrer">{t.talksCta} ↗</a></div><div className="talk-feature"><span>{t.talksSoon}</span><strong>MACG / TALKS</strong><small>Full Stack · Cloud · AI</small></div></div>
         <div className="talk-grid">{talkTopics.map((topic) => <article key={topic.title.es} data-reveal><span><CardIcon name={topic.icon} /></span><div><h3>{topic.title[locale]}</h3><p>{topic.text[locale]}</p></div><small>{t.talksSoon}</small></article>)}</div>
       </section>
 
       <section className="contact section" id="contacto" aria-labelledby="contact-title">
-        <div className="contact-copy" data-reveal><p className="section-index">07 / {locale === "es" ? "Contacto" : "Contact"}</p><h2 id="contact-title">{t.contactTitle}</h2><p className="section-lead">{t.contactLead}</p><div className="contact-links"><a className="has-tooltip" data-tooltip={t.tooltips.email} href="mailto:mickychog@gmail.com"><SiGmail className="brand-icon" aria-hidden="true" />mickychog@gmail.com</a><a className="has-tooltip" data-tooltip={t.tooltips.linkedin} href="https://linkedin.com/in/miguel-choque-garcia" target="_blank" rel="noreferrer"><FaLinkedin className="brand-icon" aria-hidden="true" />LinkedIn</a><a className="has-tooltip" data-tooltip={t.tooltips.whatsapp} href={whatsappUrl} target="_blank" rel="noreferrer"><FaWhatsapp className="brand-icon" aria-hidden="true" />+591 72084428</a></div></div>
+        <div className="contact-copy" data-reveal><p className="section-index">{locale === "es" ? "Contacto" : "Contact"}</p><h2 id="contact-title">{t.contactTitle}</h2><p className="section-lead">{t.contactLead}</p><div className="contact-links"><a className="has-tooltip" data-tooltip={t.tooltips.email} href="mailto:mickychog@gmail.com"><SiGmail className="brand-icon" aria-hidden="true" />mickychog@gmail.com</a><a className="has-tooltip" data-tooltip={t.tooltips.linkedin} href="https://linkedin.com/in/miguel-choque-garcia" target="_blank" rel="noreferrer"><FaLinkedin className="brand-icon" aria-hidden="true" />LinkedIn</a><a className="has-tooltip" data-tooltip={t.tooltips.whatsapp} href={whatsappUrl} target="_blank" rel="noreferrer"><FaWhatsapp className="brand-icon" aria-hidden="true" />+591 72084428</a></div></div>
         <form className="contact-form" onSubmit={submitContact} data-reveal><label>{t.form[0]}<input required name="name" autoComplete="name" /></label><label>{t.form[1]}<input required name="email" type="email" autoComplete="email" /></label><label>{t.form[2]}<input required name="subject" /></label><label>{t.form[3]}<textarea required name="message" rows={5} minLength={20} /></label><input name="website" className="honeypot" tabIndex={-1} autoComplete="off" aria-hidden="true" />{turnstileSiteKey && <><Script src="https://challenges.cloudflare.com/turnstile/v0/api.js" strategy="lazyOnload" /><div className="cf-turnstile" data-sitekey={turnstileSiteKey} data-theme="auto" /></>}<button className="primary-button has-tooltip" data-tooltip={locale === "es" ? "Enviar el mensaje a mi correo" : "Send the message to my email"} type="submit">{t.form[4]} <span aria-hidden="true">↗</span></button><p className="form-status" aria-live="polite">{formStatus}</p></form>
       </section>
 

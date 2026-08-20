@@ -18,6 +18,8 @@ test("builds the portfolio with its core identity and production entrypoint", as
   assert.match(data, /Construyamos algo sólido/);
   assert.match(portfolio, /wa\.me\/59172084428/);
   assert.match(portfolio, /closeOnEscape|modal-dismiss-layer/);
+  assert.match(portfolio, /approach-step-head|card-corner-icon/);
+  assert.doesNotMatch(portfolio, /0[1-7] \/ (Stack|Sobre|Trabajo|Trayectoria|Aprendizaje|Charlas|Contacto)/);
   assert.match(data, /"image" \| "pdf" \| "embed"/);
   assert.doesNotMatch(portfolio, /managedItems|\/api\/admin|\/api\/media/);
   assert.doesNotMatch(portfolio, /codex-preview|SkeletonPreview|Your site is taking shape/);

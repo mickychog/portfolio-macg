@@ -191,11 +191,11 @@ export const contributions = [
 ];
 
 export const approach = [
-  { n: "01", es: "Entender el problema", en: "Understand the problem", text: { es: "Aclarar la necesidad, las personas y el resultado esperado.", en: "Clarify the need, the people involved and the expected outcome." } },
-  { n: "02", es: "Diseñar la solución", en: "Design the solution", text: { es: "Definir flujos, contratos y límites antes de elegir herramientas.", en: "Define flows, contracts and boundaries before choosing tools." } },
-  { n: "03", es: "Construir de punta a punta", en: "Build end to end", text: { es: "Conectar interfaz, API, datos e infraestructura en un flujo coherente.", en: "Connect interface, API, data and infrastructure into one coherent flow." } },
-  { n: "04", es: "Validar y automatizar", en: "Validate and automate", text: { es: "Probar lo importante y automatizar entregas repetibles.", en: "Test what matters and automate repeatable delivery." } },
-  { n: "05", es: "Medir y evolucionar", en: "Measure and evolve", text: { es: "Observar el producto, aprender y volver al problema con evidencia.", en: "Observe the product, learn and return to the problem with evidence." } },
+  { n: "01", icon: "discover", es: "Entender el problema", en: "Understand the problem", text: { es: "Aclarar la necesidad, las personas y el resultado esperado.", en: "Clarify the need, the people involved and the expected outcome." } },
+  { n: "02", icon: "design", es: "Diseñar la solución", en: "Design the solution", text: { es: "Definir flujos, contratos y límites antes de elegir herramientas.", en: "Define flows, contracts and boundaries before choosing tools." } },
+  { n: "03", icon: "build", es: "Construir de punta a punta", en: "Build end to end", text: { es: "Conectar interfaz, API, datos e infraestructura en un flujo coherente.", en: "Connect interface, API, data and infrastructure into one coherent flow." } },
+  { n: "04", icon: "validate", es: "Validar y automatizar", en: "Validate and automate", text: { es: "Probar lo importante y automatizar entregas repetibles.", en: "Test what matters and automate repeatable delivery." } },
+  { n: "05", icon: "measure", es: "Medir y evolucionar", en: "Measure and evolve", text: { es: "Observar el producto, aprender y volver al problema con evidencia.", en: "Observe the product, learn and return to the problem with evidence." } },
 ];
 
 export const talkTopics = [
