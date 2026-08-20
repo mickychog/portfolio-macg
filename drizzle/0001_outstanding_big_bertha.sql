@@ -1,0 +1,1 @@
+CREATE INDEX `idx_portfolio_items_published_sort` ON `portfolio_items` (`published`,`sort_order`);
