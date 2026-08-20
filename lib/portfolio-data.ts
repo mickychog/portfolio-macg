@@ -2,11 +2,15 @@ export type Locale = "es" | "en";
 
 export type ManagedItem = {
   id?: number;
-  type: "project" | "experience" | "course" | "certificate";
+  type: "project" | "experience" | "course" | "certificate" | "talk";
   title: string;
+  titleEn?: string | null;
   organization: string;
+  organizationEn?: string | null;
   period: string;
+  periodEn?: string | null;
   summary: string;
+  summaryEn?: string | null;
   tags: string[];
   category: string;
   credentialUrl?: string | null;
@@ -15,66 +19,140 @@ export type ManagedItem = {
 
 export const copy = {
   es: {
-    nav: ["Inicio", "Proyectos", "Experiencia", "Formación", "Stack", "Contacto"],
-    available: "Disponible para nuevos proyectos",
-    headingA: "Construyo productos digitales donde",
-    headingB: "backend, cloud e IA",
-    headingC: "trabajan juntos.",
-    intro: "Soy Miguel, ingeniero en Ciencias de la Computación y desarrollador backend. Diseño sistemas escalables, APIs robustas y soluciones de inteligencia artificial con impacto medible.",
+    nav: ["Inicio", "Stack", "Sobre mí", "Proyectos", "Experiencia", "Formación", "Charlas", "Contacto"],
+    available: "Disponible para oportunidades y nuevos proyectos",
+    heroKicker: "Ingeniero",
+    heroTitle: "Full Stack.",
+    intro: "Soy Miguel Angel Choque Garcia, Ingeniero en Ciencias de la Computación e Ingeniero Electrónico. Construyo productos web de punta a punta: interfaces claras, APIs robustas, datos, IA y despliegues confiables en cloud.",
     projectsButton: "Ver proyectos",
     contactButton: "Hablemos",
     download: "Descargar CV",
-    aboutTitle: "Ingeniería orientada a resultados",
-    aboutText: "Combino una base sólida de ingeniería de software con experiencia práctica entregando MVPs en equipos remotos. Me interesan los sistemas observables, el código mantenible y las decisiones técnicas que se traducen en una mejor experiencia para las personas.",
+    findMe: "Encuéntrame en",
+    identityRole: "Full Stack Developer",
+    identityLine: "Frontend · Backend · Cloud & DevOps",
+    photoPending: "Fotografía profesional pendiente",
+    metrics: [
+      ["1.er", "lugar · Smart Projects 2025"],
+      ["16×", "menos latencia usando Redis"],
+      ["0.99", "AUC-ROC en detección de fraude"],
+      ["2", "ingenierías que conectan software y sistemas"],
+    ],
+    stackTitle: "Stack completo, ingeniería donde importa.",
+    stackLead: "Trabajo en todas las capas del producto y conecto desarrollo, datos e infraestructura para entregar soluciones mantenibles.",
+    alsoWork: "También trabajo con",
+    teamwork: "Forma de trabajo",
+    aboutTitle: "Ingeniería con visión de producto.",
+    aboutText: [
+      "Me motiva convertir problemas reales en productos simples de usar y sólidos por dentro. Mi formación en computación y electrónica me ayuda a comprender tanto el software como los sistemas que lo sostienen.",
+      "He construido interfaces, APIs, modelos de datos, soluciones con IA y flujos de entrega para equipos remotos. Busco decisiones técnicas claras, resultados medibles y colaboración sin fricción.",
+    ],
+    currentFocus: "Enfoque actual",
+    contributionTitle: "Lo que aporto al equipo",
+    approachTitle: "Mi enfoque",
     projectsTitle: "Proyectos seleccionados",
     projectsLead: "Productos reales, retos técnicos concretos y resultados que se pueden medir.",
     experienceTitle: "Experiencia",
     educationTitle: "Formación y certificaciones",
-    stackTitle: "Tecnologías con las que construyo",
+    talksTitle: "Compartir lo aprendido también es construir.",
+    talksLead: "Estoy preparando charlas técnicas y demos prácticas. Esta sección reunirá presentaciones, eventos y recursos cuando sean publicados.",
+    talksSoon: "Próximamente",
+    talksCta: "Conversemos sobre una charla",
     contactTitle: "Construyamos algo sólido",
-    contactLead: "¿Tienes un producto, una API o una idea con IA? Cuéntame el contexto y te responderé directamente por correo.",
+    contactLead: "¿Tienes un producto, una oportunidad o una idea? Cuéntame el contexto y te responderé directamente por correo.",
     form: ["Nombre", "Tu correo", "Asunto", "Mensaje", "Enviar mensaje"],
-    filters: ["Todos", "Backend", "Full Stack", "IA y datos", "Infraestructura"],
-    view: "Ver detalles",
+    filters: ["Todos", "Backend", "Full Stack", "IA y datos", "Cloud & DevOps"],
     certificate: "Ver certificado",
     close: "Cerrar",
+    footerRole: "Full Stack Developer",
+    footerLine: "TypeScript · Angular/React · NestJS · Cloud",
+    footerSocial: "Conecta",
+    footerNav: "Navegación",
+    footerMade: "Hecho con intención en Bolivia",
+    tooltips: {
+      projects: "Explorar proyectos y resultados",
+      contact: "Ir al formulario de contacto",
+      cv: "Abrir el CV en una pestaña nueva",
+      language: "Cambiar el sitio a inglés",
+      theme: "Cambiar entre tema claro y oscuro",
+      github: "Ver mi código y repositorios",
+      linkedin: "Conectar conmigo en LinkedIn",
+      email: "Escribirme por correo electrónico",
+    },
   },
   en: {
-    nav: ["Home", "Projects", "Experience", "Education", "Stack", "Contact"],
-    available: "Available for new projects",
-    headingA: "I build digital products where",
-    headingB: "backend, cloud and AI",
-    headingC: "work together.",
-    intro: "I’m Miguel, a Computer Science engineer and backend developer. I design scalable systems, robust APIs and artificial intelligence solutions with measurable impact.",
+    nav: ["Home", "Stack", "About", "Projects", "Experience", "Education", "Speaking", "Contact"],
+    available: "Available for opportunities and new projects",
+    heroKicker: "Engineer",
+    heroTitle: "Full Stack.",
+    intro: "I’m Miguel Angel Choque Garcia, a Computer Science Engineer and Electronic Engineer. I build web products end to end: clear interfaces, robust APIs, data, AI and reliable cloud delivery.",
     projectsButton: "View projects",
     contactButton: "Let’s talk",
     download: "Download résumé",
-    aboutTitle: "Engineering focused on outcomes",
-    aboutText: "I combine a solid software engineering foundation with hands-on experience delivering MVPs in remote teams. I care about observable systems, maintainable code and technical decisions that improve people’s experience.",
+    findMe: "Find me on",
+    identityRole: "Full Stack Developer",
+    identityLine: "Frontend · Backend · Cloud & DevOps",
+    photoPending: "Professional photo pending",
+    metrics: [
+      ["1st", "place · Smart Projects 2025"],
+      ["16×", "lower latency using Redis"],
+      ["0.99", "AUC-ROC in fraud detection"],
+      ["2", "engineering degrees connecting software and systems"],
+    ],
+    stackTitle: "A complete stack, engineering where it matters.",
+    stackLead: "I work across every product layer and connect development, data and infrastructure to deliver maintainable solutions.",
+    alsoWork: "I also work with",
+    teamwork: "How I work",
+    aboutTitle: "Engineering with a product mindset.",
+    aboutText: [
+      "I enjoy turning real problems into products that are simple to use and solid inside. My background in computing and electronics helps me understand both software and the systems supporting it.",
+      "I have built interfaces, APIs, data models, AI solutions and delivery workflows for remote teams. I aim for clear technical decisions, measurable outcomes and frictionless collaboration.",
+    ],
+    currentFocus: "Current focus",
+    contributionTitle: "What I bring to a team",
+    approachTitle: "My approach",
     projectsTitle: "Selected projects",
     projectsLead: "Real products, concrete technical challenges and measurable outcomes.",
     experienceTitle: "Experience",
     educationTitle: "Education and certifications",
-    stackTitle: "Technologies I build with",
+    talksTitle: "Sharing what I learn is also a way to build.",
+    talksLead: "I’m preparing technical talks and practical demos. This section will collect presentations, events and resources as they are published.",
+    talksSoon: "Coming soon",
+    talksCta: "Let’s discuss a talk",
     contactTitle: "Let’s build something solid",
-    contactLead: "Have a product, an API or an AI idea? Tell me the context and I’ll reply directly by email.",
+    contactLead: "Have a product, an opportunity or an idea? Tell me the context and I’ll reply directly by email.",
     form: ["Name", "Your email", "Subject", "Message", "Send message"],
-    filters: ["All", "Backend", "Full Stack", "AI & data", "Infrastructure"],
-    view: "View details",
+    filters: ["All", "Backend", "Full Stack", "AI & data", "Cloud & DevOps"],
     certificate: "View certificate",
     close: "Close",
+    footerRole: "Full Stack Developer",
+    footerLine: "TypeScript · Angular/React · NestJS · Cloud",
+    footerSocial: "Connect",
+    footerNav: "Navigation",
+    footerMade: "Made with intention in Bolivia",
+    tooltips: {
+      projects: "Explore projects and outcomes",
+      contact: "Go to the contact form",
+      cv: "Open the résumé in a new tab",
+      language: "Switch the site to Spanish",
+      theme: "Switch between light and dark themes",
+      github: "View my code and repositories",
+      linkedin: "Connect with me on LinkedIn",
+      email: "Send me an email",
+    },
   },
 } as const;
 
+export const heroTechnologies = ["TypeScript", "Angular", "React", "NestJS", "Spring Boot", "PostgreSQL", "Docker", "AWS · Azure"];
+
 export const projects = [
-  { name: "Talent Match", type: "IA y datos", role: "Backend · Foo Talent", description: { es: "Plataforma de matching de talento con procesamiento inteligente de CVs y búsqueda vectorial de candidatos.", en: "Talent matching platform with intelligent résumé processing and vector candidate search." }, result: "1.er lugar · Smart Projects 2025", stack: ["NestJS", "Azure OpenAI", "Pinecone", "Redis"] },
-  { name: "ConnectFlow", type: "Backend", role: "Backend · No Country", description: { es: "CRM inteligente para automatizar comunicaciones, segmentar usuarios y programar recordatorios multicanal.", en: "Smart CRM for automated communication, user segmentation and multichannel reminders." }, result: "6+ endpoints REST documentados", stack: ["Node.js", "WhatsApp API", "Brevo", "Swagger"] },
-  { name: "MediConnect", type: "Full Stack", role: "Full Stack · No Country", description: { es: "Portal de telemedicina con historias clínicas, autenticación JWT y autorización basada en roles.", en: "Telemedicine portal with electronic health records, JWT authentication and role-based authorization." }, result: "PostgreSQL normalizado en 3FN", stack: ["Angular", "Node.js", "PostgreSQL", "Tailwind"] },
-  { name: "Fraud Detection", type: "IA y datos", role: "Machine Learning · No Country", description: { es: "Modelo de detección de fraude con balanceo de clases, análisis exploratorio y feature engineering.", en: "Fraud detection model with class balancing, exploratory analysis and feature engineering." }, result: "AUC-ROC 0.99", stack: ["Python", "scikit-learn", "SMOTE", "pandas"] },
+  { name: "Talent Match", type: "IA y datos", role: { es: "Backend · Foo Talent", en: "Backend · Foo Talent" }, description: { es: "Plataforma de matching de talento con procesamiento inteligente de CVs y búsqueda vectorial de candidatos.", en: "Talent matching platform with intelligent résumé processing and vector candidate search." }, result: { es: "1.er lugar · Smart Projects 2025", en: "1st place · Smart Projects 2025" }, stack: ["NestJS", "Azure OpenAI", "Pinecone", "Redis"] },
+  { name: "ConnectFlow", type: "Backend", role: { es: "Backend · No Country", en: "Backend · No Country" }, description: { es: "CRM inteligente para automatizar comunicaciones, segmentar usuarios y programar recordatorios multicanal.", en: "Smart CRM for automated communication, user segmentation and multichannel reminders." }, result: { es: "6+ endpoints REST documentados", en: "6+ documented REST endpoints" }, stack: ["Node.js", "WhatsApp API", "Brevo", "Swagger"] },
+  { name: "MediConnect", type: "Full Stack", role: { es: "Full Stack · No Country", en: "Full Stack · No Country" }, description: { es: "Portal de telemedicina con historias clínicas, autenticación JWT y autorización basada en roles.", en: "Telemedicine portal with electronic health records, JWT authentication and role-based authorization." }, result: { es: "PostgreSQL normalizado en 3FN", en: "PostgreSQL normalized to 3NF" }, stack: ["Angular", "Node.js", "PostgreSQL", "Tailwind"] },
+  { name: "Fraud Detection", type: "IA y datos", role: { es: "Machine Learning · No Country", en: "Machine Learning · No Country" }, description: { es: "Modelo de detección de fraude con balanceo de clases, análisis exploratorio y feature engineering.", en: "Fraud detection model with class balancing, exploratory analysis and feature engineering." }, result: { es: "AUC-ROC 0.99", en: "AUC-ROC 0.99" }, stack: ["Python", "scikit-learn", "SMOTE", "pandas"] },
 ];
 
 export const experiences = [
-  { period: { es: "2026 — Actualidad", en: "2026 — Present" }, company: "Fiscalía General del Estado", role: { es: "Pasante de Ingeniería", en: "Engineering Intern" }, category: "Infraestructura", description: { es: "Despliegue de software, telemetría, monitoreo y automatización de soporte aplicando principios de Infrastructure as Code.", en: "Software deployment, telemetry, monitoring and support automation applying Infrastructure as Code principles." } },
+  { period: { es: "2026 — Actualidad", en: "2026 — Present" }, company: "Fiscalía General del Estado", role: { es: "Pasante de Ingeniería", en: "Engineering Intern" }, category: "Cloud & DevOps", description: { es: "Despliegue de software, telemetría, monitoreo y automatización de soporte aplicando principios de Infrastructure as Code.", en: "Software deployment, telemetry, monitoring and support automation applying Infrastructure as Code principles." } },
   { period: { es: "Oct — Dic 2025", en: "Oct — Dec 2025" }, company: "No Country · ConnectFlow", role: { es: "Desarrollador Backend", en: "Backend Developer" }, category: "Backend", description: { es: "CRM inteligente, integraciones con WhatsApp Cloud API y servicios de correo, APIs documentadas y flujo CI/CD.", en: "Smart CRM, WhatsApp Cloud API and email integrations, documented APIs and CI/CD workflow." } },
   { period: { es: "Sep — Oct 2025", en: "Sep — Oct 2025" }, company: "No Country · MediConnect", role: { es: "Desarrollador Full Stack", en: "Full Stack Developer" }, category: "Full Stack", description: { es: "Backend Node.js, frontend Angular, autenticación JWT, RBAC y diseño de datos clínicos en PostgreSQL.", en: "Node.js backend, Angular frontend, JWT authentication, RBAC and clinical data design in PostgreSQL." } },
   { period: { es: "Abr — Ago 2025", en: "Apr — Aug 2025" }, company: "Foo Talent", role: { es: "Desarrollador Backend", en: "Backend Developer" }, category: "Backend", description: { es: "Talent Match y Buggle: IA generativa, búsqueda vectorial, caché Redis, trazabilidad de errores y monitoreo de producción.", en: "Talent Match and Buggle: generative AI, vector search, Redis caching, error tracing and production monitoring." } },
@@ -86,23 +164,50 @@ export const education = [
   { degree: { es: "Ingeniería Electrónica", en: "Electronic Engineering" }, institution: "USFX", period: "2017 — 2025", status: { es: "Egresado", en: "Graduate" } },
 ];
 
-export const certificateEnglish: Record<string, { title: string; summary: string; period: string }> = {
-  "Especialización Backend Java": { title: "Java Backend Specialization", summary: "Java, Spring Boot 3, JPA/Hibernate, REST API security, JUnit and Mockito.", period: "July 2024 · 286 hours" },
-  "Ethical Hacker e Introduction to Cybersecurity": { title: "Ethical Hacker and Introduction to Cybersecurity", summary: "Attack vectors, network protection, CIA fundamentals and API security.", period: "Sep — Nov 2024" },
-  "Cloud Computing e Inteligencia Artificial": { title: "Cloud Computing and Artificial Intelligence", summary: "LLM foundations, cloud generative AI, machine learning and AI ethics.", period: "Jun — Sep 2025" },
-  "Desarrollo Full Stack PHP": { title: "Full Stack PHP Development", summary: "CRUD applications with Laravel 10, Vue 3, authentication and MVC architecture.", period: "December 2023 · 38 hours" },
-};
-
 export const certificates: ManagedItem[] = [
-  { type: "certificate", title: "Especialización Backend Java", organization: "Oracle ONE · Alura Latam", period: "Julio 2024 · 286 horas", summary: "Java, Spring Boot 3, JPA/Hibernate, seguridad en APIs REST, JUnit y Mockito.", tags: ["Java", "Spring Boot", "Testing"], category: "Backend" },
-  { type: "certificate", title: "Ethical Hacker e Introduction to Cybersecurity", organization: "Cisco Networking Academy", period: "Sep — Nov 2024", summary: "Vectores de ataque, protección de redes, fundamentos CIA y seguridad en APIs.", tags: ["Cybersecurity", "Networks"], category: "Infraestructura" },
-  { type: "certificate", title: "Cloud Computing e Inteligencia Artificial", organization: "AWS · IBM SkillsBuild", period: "Jun — Sep 2025", summary: "Fundamentos de LLMs, IA generativa en la nube, machine learning y ética en IA.", tags: ["AWS", "Generative AI", "ML"], category: "IA y datos" },
-  { type: "certificate", title: "Desarrollo Full Stack PHP", organization: "Innovacode", period: "Diciembre 2023 · 38 horas", summary: "Aplicaciones CRUD con Laravel 10, Vue 3, autenticación y arquitectura MVC.", tags: ["Laravel", "Vue", "PHP"], category: "Full Stack" },
+  { type: "certificate", title: "Especialización Backend Java", titleEn: "Java Backend Specialization", organization: "Oracle ONE · Alura Latam", period: "Julio 2024 · 286 horas", periodEn: "July 2024 · 286 hours", summary: "Java, Spring Boot 3, JPA/Hibernate, seguridad en APIs REST, JUnit y Mockito.", summaryEn: "Java, Spring Boot 3, JPA/Hibernate, REST API security, JUnit and Mockito.", tags: ["Java", "Spring Boot", "Testing"], category: "Backend" },
+  { type: "certificate", title: "Ethical Hacker e Introduction to Cybersecurity", titleEn: "Ethical Hacker and Introduction to Cybersecurity", organization: "Cisco Networking Academy", period: "Sep — Nov 2024", periodEn: "Sep — Nov 2024", summary: "Vectores de ataque, protección de redes, fundamentos CIA y seguridad en APIs.", summaryEn: "Attack vectors, network protection, CIA fundamentals and API security.", tags: ["Cybersecurity", "Networks"], category: "Cloud & DevOps" },
+  { type: "certificate", title: "Cloud Computing e Inteligencia Artificial", titleEn: "Cloud Computing and Artificial Intelligence", organization: "AWS · IBM SkillsBuild", period: "Jun — Sep 2025", periodEn: "Jun — Sep 2025", summary: "Fundamentos de LLMs, IA generativa en la nube, machine learning y ética en IA.", summaryEn: "LLM foundations, cloud generative AI, machine learning and AI ethics.", tags: ["AWS", "Generative AI", "ML"], category: "IA y datos" },
+  { type: "certificate", title: "Desarrollo Full Stack PHP", titleEn: "Full Stack PHP Development", organization: "Innovacode", period: "Diciembre 2023 · 38 horas", periodEn: "December 2023 · 38 hours", summary: "Aplicaciones CRUD con Laravel 10, Vue 3, autenticación y arquitectura MVC.", summaryEn: "CRUD applications with Laravel 10, Vue 3, authentication and MVC architecture.", tags: ["Laravel", "Vue", "PHP"], category: "Full Stack" },
 ];
 
 export const skillGroups = [
-  { title: "Backend", items: ["NestJS", "Spring Boot", "Laravel", "Express", "REST APIs", "JWT"] },
-  { title: "Datos y cloud", items: ["PostgreSQL", "Redis", "MongoDB", "AWS", "Azure", "Firebase"] },
-  { title: "IA y datos", items: ["Python", "scikit-learn", "Azure OpenAI", "Pinecone", "pandas"] },
-  { title: "Frontend y entrega", items: ["Angular", "React", "Vue", "Docker", "GitHub Actions", "Sentry"] },
+  { icon: "<>", title: { es: "Frontend", en: "Frontend" }, lead: { es: "Interfaces accesibles, rápidas y orientadas al producto.", en: "Accessible, fast and product-oriented interfaces." }, items: ["Angular", "React", "Vue 3", "TypeScript", "Tailwind", "HTML · CSS"] },
+  { icon: "{}", title: { es: "Backend", en: "Backend" }, lead: { es: "APIs mantenibles, autenticación y arquitectura limpia.", en: "Maintainable APIs, authentication and clean architecture." }, items: ["NestJS", "Spring Boot 3", "Laravel 10", "Express", "REST · OpenAPI", "JWT · RBAC"] },
+  { icon: "◎", title: { es: "Datos e IA", en: "Data & AI" }, lead: { es: "Datos confiables e inteligencia aplicada a casos reales.", en: "Reliable data and intelligence applied to real use cases." }, items: ["PostgreSQL", "MongoDB", "Redis", "Azure OpenAI", "Pinecone", "scikit-learn"] },
+  { icon: "☁", title: { es: "Cloud & DevOps", en: "Cloud & DevOps" }, lead: { es: "Entrega automatizada, observabilidad e infraestructura.", en: "Automated delivery, observability and infrastructure." }, items: ["Docker", "GitHub Actions", "CI/CD", "AWS", "Azure", "Sentry · IaC"] },
+  { icon: "✓", title: { es: "Testing y calidad", en: "Testing & quality" }, lead: { es: "Calidad integrada desde el diseño hasta producción.", en: "Quality built in from design to production." }, items: ["TDD", "JUnit 5", "Mockito", "Unit tests", "Integration", "SOLID"] },
+  { icon: "⌁", title: { es: "Sistemas", en: "Systems" }, lead: { es: "Una mirada de ingeniería que une software y electrónica.", en: "An engineering perspective connecting software and electronics." }, items: ["Telemetría", "Monitoreo", "Automatización", "Redes", "Electrónica", "Soporte"] },
 ];
+
+export const contributions = [
+  { icon: "↗", title: { es: "Ejecución Full Stack", en: "Full stack execution" }, text: { es: "Puedo avanzar desde la interfaz y la API hasta los datos y el despliegue.", en: "I can move from the interface and API through data and deployment." } },
+  { icon: "◇", title: { es: "Arquitectura pragmática", en: "Pragmatic architecture" }, text: { es: "Elijo soluciones claras, mantenibles y proporcionadas al problema.", en: "I choose clear, maintainable solutions proportionate to the problem." } },
+  { icon: "☁", title: { es: "Cloud & DevOps", en: "Cloud & DevOps" }, text: { es: "Automatización, observabilidad y entregas repetibles desde el inicio.", en: "Automation, observability and repeatable delivery from the start." } },
+  { icon: "✦", title: { es: "IA aplicada", en: "Applied AI" }, text: { es: "Integro IA cuando mejora una tarea, una decisión o una métrica real.", en: "I use AI when it improves a task, a decision or a real metric." } },
+];
+
+export const approach = [
+  { n: "01", es: "Entender el problema", en: "Understand the problem" },
+  { n: "02", es: "Diseñar la solución", en: "Design the solution" },
+  { n: "03", es: "Construir de punta a punta", en: "Build end to end" },
+  { n: "04", es: "Validar y automatizar", en: "Validate and automate" },
+  { n: "05", es: "Medir y evolucionar", en: "Measure and evolve" },
+];
+
+export const talkTopics = [
+  { icon: "<>", title: { es: "Full Stack sin fricción", en: "Frictionless full stack" }, text: { es: "Contratos claros entre interfaz, API y datos.", en: "Clear contracts across interface, API and data." } },
+  { icon: "✦", title: { es: "IA útil en productos reales", en: "Useful AI in real products" }, text: { es: "Del prototipo a una integración medible y observable.", en: "From prototype to a measurable, observable integration." } },
+  { icon: "◉", title: { es: "Rendimiento y DevOps", en: "Performance & DevOps" }, text: { es: "Caché, telemetría y despliegues que reducen incertidumbre.", en: "Caching, telemetry and delivery that reduce uncertainty." } },
+];
+
+export function localizeManaged(item: ManagedItem, locale: Locale): ManagedItem {
+  if (locale === "es") return item;
+  return {
+    ...item,
+    title: item.titleEn?.trim() || item.title,
+    organization: item.organizationEn?.trim() || item.organization,
+    period: item.periodEn?.trim() || item.period,
+    summary: item.summaryEn?.trim() || item.summary,
+  };
+}

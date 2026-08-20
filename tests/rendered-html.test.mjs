@@ -8,9 +8,13 @@ test("builds the portfolio with its core identity and production entrypoint", as
     readFile(new URL("../lib/portfolio-data.ts", import.meta.url), "utf8"),
     access(new URL("../dist/server/index.js", import.meta.url)),
   ]);
-  assert.match(portfolio, /Miguel Choque/);
-  assert.match(data, /backend, cloud e IA/);
+  assert.match(portfolio, /Miguel Angel/);
+  assert.match(data, /Ingeniero en Ciencias de la Computación e Ingeniero Electrónico/);
+  assert.match(data, /Full Stack/);
+  assert.match(data, /Cloud & DevOps/);
   assert.match(data, /Proyectos seleccionados/);
+  assert.match(data, /Lo que aporto al equipo/);
+  assert.match(data, /Compartir lo aprendido también es construir/);
   assert.match(data, /Construyamos algo sólido/);
   assert.doesNotMatch(portfolio, /codex-preview|SkeletonPreview|Your site is taking shape/);
 });

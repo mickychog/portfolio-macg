@@ -11,13 +11,13 @@ export async function generateMetadata(): Promise<Metadata> {
   const host = requestHeaders.get("x-forwarded-host") ?? requestHeaders.get("host") ?? "localhost:3000";
   const protocol = requestHeaders.get("x-forwarded-proto") ?? (host.startsWith("localhost") ? "http" : "https");
   const image = `${protocol}://${host}/og.png`;
-  const title = "Miguel Choque | Backend, Cloud e IA";
-  const description = "Portafolio de Miguel Angel Choque Garcia, desarrollador backend especializado en sistemas escalables, cloud e inteligencia artificial.";
+  const title = "Miguel Angel Choque Garcia | Full Stack Developer";
+  const description = "Portafolio de Miguel Angel Choque Garcia, desarrollador Full Stack e ingeniero especializado en frontend, backend, cloud, DevOps e inteligencia artificial.";
   return {
     title,
     description,
     icons: { icon: "/favicon.svg", shortcut: "/favicon.svg" },
-    openGraph: { title, description, type: "website", images: [{ url: image, width: 1732, height: 908, alt: "Miguel Choque — Backend, Cloud e IA" }] },
+    openGraph: { title, description, type: "website", images: [{ url: image, width: 1732, height: 908, alt: "Miguel Angel Choque Garcia — Full Stack Developer" }] },
     twitter: { card: "summary_large_image", title, description, images: [image] },
   };
 }

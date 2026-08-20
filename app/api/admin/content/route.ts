@@ -5,11 +5,15 @@ import { portfolioItems } from "@/db/schema";
 import { isPortfolioAdmin } from "@/lib/admin-auth";
 
 const itemSchema = z.object({
-  type: z.enum(["project", "experience", "course", "certificate"]),
+  type: z.enum(["project", "experience", "course", "certificate", "talk"]),
   title: z.string().trim().min(2).max(160),
+  titleEn: z.string().trim().max(160).nullable().optional(),
   organization: z.string().trim().max(160).default(""),
+  organizationEn: z.string().trim().max(160).nullable().optional(),
   period: z.string().trim().max(80).default(""),
+  periodEn: z.string().trim().max(80).nullable().optional(),
   summary: z.string().trim().min(10).max(2000),
+  summaryEn: z.string().trim().max(2000).nullable().optional(),
   tags: z.array(z.string().trim().min(1).max(40)).max(12).default([]),
   category: z.string().trim().max(60).default("Backend"),
   credentialUrl: z.string().url().nullable().optional(),

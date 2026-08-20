@@ -50,6 +50,10 @@ export function AdminPanel() {
       body: JSON.stringify({
         type: data.get("type"), title: data.get("title"), organization: data.get("organization"),
         period: data.get("period"), summary: data.get("summary"), category: data.get("category"),
+        titleEn: String(data.get("titleEn") ?? "").trim() || null,
+        organizationEn: String(data.get("organizationEn") ?? "").trim() || null,
+        periodEn: String(data.get("periodEn") ?? "").trim() || null,
+        summaryEn: String(data.get("summaryEn") ?? "").trim() || null,
         tags: String(data.get("tags") ?? "").split(",").map((tag) => tag.trim()).filter(Boolean),
         credentialUrl: String(data.get("credentialUrl") ?? "").trim() || null,
         fileKey,
@@ -73,16 +77,18 @@ export function AdminPanel() {
 
   return (
     <main className="admin-shell">
-      <header className="admin-header"><div><p className="section-index">Portfolio CMS</p><h1>Gestionar contenido</h1><p>Añade proyectos, experiencia, cursos y certificados sin modificar código.</p></div><Link className="secondary-button" href="/">Ver portafolio ↗</Link></header>
+      <header className="admin-header"><div><p className="section-index">Portfolio CMS</p><h1>Gestionar contenido</h1><p>Añade proyectos, experiencia, cursos, certificados y charlas sin modificar código. Español es obligatorio; inglés es opcional y usará español como respaldo.</p></div><Link className="secondary-button" href="/">Ver portafolio ↗</Link></header>
       <div className="admin-grid">
         <form className="admin-form" onSubmit={create}>
           <h2>Nuevo elemento</h2>
-          <div className="form-row"><label>Tipo<select name="type" required><option value="experience">Experiencia</option><option value="project">Proyecto</option><option value="course">Curso</option><option value="certificate">Certificado</option></select></label><label>Categoría<select name="category"><option>Backend</option><option>Full Stack</option><option>IA y datos</option><option>Infraestructura</option></select></label></div>
-          <label>Título<input name="title" required minLength={2} /></label><label>Organización<input name="organization" /></label><label>Periodo<input name="period" placeholder="Ene 2026 — Actualidad" /></label><label>Descripción<textarea name="summary" required minLength={10} rows={5} /></label><label>Tecnologías o etiquetas<input name="tags" placeholder="NestJS, PostgreSQL, Redis" /></label><label>Enlace de verificación<input name="credentialUrl" type="url" placeholder="https://…" /></label><label>Imagen del certificado<input name="certificateImage" type="file" accept="image/jpeg,image/png,image/webp" /><span className="field-hint">JPG, PNG o WebP · máximo 6 MB. El original no se publica.</span></label>
+          <div className="form-row"><label>Tipo<select name="type" required><option value="experience">Experiencia</option><option value="project">Proyecto</option><option value="course">Curso</option><option value="certificate">Certificado</option><option value="talk">Charla</option></select></label><label>Categoría<select name="category"><option>Full Stack</option><option>Frontend</option><option>Backend</option><option>IA y datos</option><option>Cloud & DevOps</option></select></label></div>
+          <fieldset className="language-fields"><legend>Español · obligatorio</legend><label>Título<input name="title" required minLength={2} /></label><label>Organización<input name="organization" /></label><label>Periodo<input name="period" placeholder="Ene 2026 — Actualidad" /></label><label>Descripción<textarea name="summary" required minLength={10} rows={5} /></label></fieldset>
+          <fieldset className="language-fields"><legend>English · optional</legend><label>Title<input name="titleEn" minLength={2} /></label><label>Organization<input name="organizationEn" /></label><label>Period<input name="periodEn" placeholder="Jan 2026 — Present" /></label><label>Description<textarea name="summaryEn" rows={5} /></label><span className="field-hint">Si dejas un campo vacío, el sitio mostrará la versión en español.</span></fieldset>
+          <label>Tecnologías o etiquetas<input name="tags" placeholder="Angular, NestJS, PostgreSQL, Docker" /></label><label>Enlace de verificación<input name="credentialUrl" type="url" placeholder="https://…" /></label><label>Imagen del certificado<input name="certificateImage" type="file" accept="image/jpeg,image/png,image/webp" /><span className="field-hint">JPG, PNG o WebP · máximo 6 MB. El original no se publica.</span></label>
           <div className="form-row"><label>Orden<input name="sortOrder" type="number" min="0" defaultValue="0" /></label><label className="check-label"><input name="published" type="checkbox" defaultChecked /> Publicado</label></div>
           <button className="primary-button" type="submit">Guardar contenido</button><p className="form-status" aria-live="polite">{status}</p>
         </form>
-        <section className="admin-list" aria-labelledby="content-list-title"><div className="admin-list-heading"><h2 id="content-list-title">Contenido</h2><span>{items.length} elementos</span></div>{items.map((item) => <article key={item.id}><div><span className="category">{item.type} · {item.category}</span><h3>{item.title}</h3><p>{item.organization} {item.period && `· ${item.period}`}</p></div><div className="admin-item-actions"><button type="button" onClick={() => togglePublished(item)}>{item.published ? "Ocultar" : "Publicar"}</button><button className="danger" type="button" onClick={() => remove(item)}>Eliminar</button></div></article>)}</section>
+        <section className="admin-list" aria-labelledby="content-list-title"><div className="admin-list-heading"><h2 id="content-list-title">Contenido</h2><span>{items.length} elementos</span></div>{items.map((item) => { const translated = Boolean(item.titleEn?.trim() && item.summaryEn?.trim()); return <article key={item.id}><div><span className="category">{item.type} · {item.category}</span><h3>{item.title}</h3><p>{item.organization} {item.period && `· ${item.period}`}</p><span className={`translation-badge ${translated ? "complete" : "pending"}`}>{translated ? "ES · EN completo" : "Traducción EN pendiente"}</span></div><div className="admin-item-actions"><button type="button" onClick={() => togglePublished(item)}>{item.published ? "Ocultar" : "Publicar"}</button><button className="danger" type="button" onClick={() => remove(item)}>Eliminar</button></div></article>; })}</section>
       </div>
     </main>
   );
