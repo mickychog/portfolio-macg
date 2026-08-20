@@ -19,6 +19,7 @@ import {
   type ManagedItem,
 } from "@/lib/portfolio-data";
 import { MotionEffects } from "./MotionEffects";
+import { MeteorCanvas } from "./MeteorCanvas";
 
 type Theme = "light" | "dark";
 
@@ -115,6 +116,7 @@ export function Portfolio({ managedItems, turnstileSiteKey }: { managedItems: Ma
       </header>
 
       <section className="hero" id="inicio">
+        <MeteorCanvas />
         <div className="hero-copy hero-enter">
           <p className="eyebrow"><span /> {t.available}</p>
           <h1><span className="hero-kicker">{t.heroKicker}</span><strong>{t.heroTitle}</strong></h1>
@@ -151,7 +153,7 @@ export function Portfolio({ managedItems, turnstileSiteKey }: { managedItems: Ma
       <section className="section about-section" id="sobre-mi" aria-labelledby="about-title">
         <div className="about-intro" data-reveal><div><p className="section-index">02 / {locale === "es" ? "Sobre mí" : "About"}</p><h2 id="about-title">{t.aboutTitle}</h2></div><div className="about-copy">{t.aboutText.map((paragraph) => <p key={paragraph}>{paragraph}</p>)}<div className="focus-row"><span>{t.currentFocus}</span>{["Full Stack", "Cloud & DevOps", "Applied AI"].map((item) => <small key={item}>{item}</small>)}</div></div></div>
         <div className="contribution-block"><h3 data-reveal>{t.contributionTitle}</h3><div className="contribution-grid">{contributions.map((item) => <article key={item.title.es} data-reveal><span>{item.icon}</span><h4>{item.title[locale]}</h4><p>{item.text[locale]}</p></article>)}</div></div>
-        <div className="approach-block" data-reveal><h3>{t.approachTitle}</h3><ol>{approach.map((step) => <li key={step.n}><span>{step.n}</span><strong>{step[locale]}</strong></li>)}</ol></div>
+        <div className="approach-block" data-reveal><h3>{t.approachTitle}</h3><ol>{approach.map((step) => <li key={step.n}><span>{step.n}</span><strong>{step[locale]}</strong><p>{step.text[locale]}</p></li>)}</ol></div>
       </section>
 
       <section className="section" id="proyectos" aria-labelledby="projects-title">
@@ -179,6 +181,7 @@ export function Portfolio({ managedItems, turnstileSiteKey }: { managedItems: Ma
       </section>
 
       <section className="section talks-section" id="charlas" aria-labelledby="talks-title">
+        <MeteorCanvas />
         <div className="talks-heading" data-reveal><div><p className="section-index">06 / {locale === "es" ? "Charlas y comunidad" : "Speaking & community"}</p><h2 id="talks-title">{t.talksTitle}</h2><p className="section-lead">{t.talksLead}</p><a className="secondary-button has-tooltip" data-tooltip={t.tooltips.linkedin} href="https://linkedin.com/in/miguel-choque-garcia" target="_blank" rel="noreferrer">{t.talksCta} ↗</a></div><div className="talk-feature"><span>{t.talksSoon}</span><strong>MACG / TALKS</strong><small>Full Stack · Cloud · AI</small></div></div>
         <div className="talk-grid">{talkTopics.map((topic) => <article key={topic.title.es} data-reveal><span>{topic.icon}</span><div><h3>{topic.title[locale]}</h3><p>{topic.text[locale]}</p></div><small>{t.talksSoon}</small></article>)}{managedTalks.map((talk) => <article key={`talk-${talk.id}`} data-reveal><span>◈</span><div><h3>{talk.title}</h3><p>{talk.summary}</p></div><small>{talk.period || talk.organization}</small></article>)}</div>
       </section>
