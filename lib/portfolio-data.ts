@@ -73,7 +73,7 @@ export const copy = {
     footerLine: "TypeScript · Angular/React · NestJS · Cloud",
     footerSocial: "Conecta",
     footerNav: "Navegación",
-    footerMade: "Hecho con intención en Bolivia",
+    footerMade: "Hecho en Bolivia con mate, código y curiosidad",
     tooltips: {
       projects: "Explorar proyectos y resultados",
       contact: "Ir al formulario de contacto",
@@ -141,7 +141,7 @@ export const copy = {
     footerLine: "TypeScript · Angular/React · NestJS · Cloud",
     footerSocial: "Connect",
     footerNav: "Navigation",
-    footerMade: "Made with intention in Bolivia",
+    footerMade: "Made in Bolivia with mate, code and curiosity",
     tooltips: {
       projects: "Explore projects and outcomes",
       contact: "Go to the contact form",
