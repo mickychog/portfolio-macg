@@ -31,7 +31,7 @@ export const copy = {
     findMe: "Encuéntrame en",
     identityRole: "Full Stack Developer",
     identityLine: "Frontend · Backend · Cloud & DevOps",
-    photoPending: "Fotografía profesional",
+    photoPending: "",
     metrics: [
       ["1.er", "lugar · Smart Projects 2025"],
       ["16×", "menos latencia usando Redis"],
@@ -150,6 +150,8 @@ export const copy = {
 export const heroTechnologies = ["TypeScript", "Angular", "React", "NestJS", "Spring Boot", "PostgreSQL", "Docker", "AWS · Azure"];
 
 export const projects = [
+  { name: "CareerGenius", type: "Full Stack", role: { es: "Full Stack · Proyecto propio", en: "Full Stack · Personal project" }, description: { es: "Plataforma de orientación vocacional para Bolivia con test adaptativo, recomendaciones académicas y planes de estudio generados con IA.", en: "AI-powered career guidance platform for Bolivia with adaptive assessments, academic recommendations and personalized study plans." }, result: { es: "Producto end-to-end desplegado y contenerizado", en: "Deployed and containerized end-to-end product" }, stack: ["React", "TypeScript", "NestJS", "MongoDB", "Gemini", "Docker"], codeUrl: "https://github.com/mickychog/career-genius" },
+  { name: "Control por Gestos", type: "IA y datos", role: { es: "Visión artificial · Proyecto académico", en: "Computer vision · Academic project" }, description: { es: "Sistema de interacción sin contacto que reconoce gestos de la mano en tiempo real y los traduce en acciones del mouse, volumen y brillo.", en: "Touchless interaction system that recognizes hand gestures in real time and maps them to mouse, volume and brightness controls." }, result: { es: "Precisión superior al 95% en clasificación de gestos", en: "Over 95% gesture classification accuracy" }, stack: ["Python", "Vision Transformer", "MediaPipe", "OpenCV", "PyTorch"], codeUrl: "https://github.com/mickychog/control_por_gestos" },
   { name: "Talent Match", type: "IA y datos", role: { es: "Backend · Foo Talent", en: "Backend · Foo Talent" }, description: { es: "Plataforma de matching de talento con procesamiento inteligente de CVs y búsqueda vectorial de candidatos.", en: "Talent matching platform with intelligent résumé processing and vector candidate search." }, result: { es: "1.er lugar · Smart Projects 2025", en: "1st place · Smart Projects 2025" }, stack: ["NestJS", "Azure OpenAI", "Pinecone", "Redis"], codeUrl: "https://github.com/jonanfu/backend-foo-talent" },
   { name: "ConnectFlow", type: "Backend", role: { es: "Backend · No Country", en: "Backend · No Country" }, description: { es: "CRM inteligente para automatizar comunicaciones, segmentar usuarios y programar recordatorios multicanal.", en: "Smart CRM for automated communication, user segmentation and multichannel reminders." }, result: { es: "6+ endpoints REST documentados", en: "6+ documented REST endpoints" }, stack: ["Node.js", "WhatsApp API", "Brevo", "Swagger"], codeUrl: "https://github.com/G33-NoCountry/startup-crm" },
   { name: "MediConnect", type: "Full Stack", role: { es: "Full Stack · No Country", en: "Full Stack · No Country" }, description: { es: "Portal de telemedicina con historias clínicas, autenticación JWT y autorización basada en roles.", en: "Telemedicine portal with electronic health records, JWT authentication and role-based authorization." }, result: { es: "PostgreSQL normalizado en 3FN", en: "PostgreSQL normalized to 3NF" }, stack: ["Angular", "Node.js", "PostgreSQL", "Tailwind"] },
