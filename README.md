@@ -25,21 +25,113 @@ npm run dev
 
 Abre `http://localhost:3000`.
 
-## Actualizar el contenido
+## Guía para actualizar el contenido
 
-Los textos, proyectos, experiencia, formación, certificados, stack y charlas están en `lib/portfolio-data.ts`.
+La fuente principal es `lib/portfolio-data.ts`. Allí se encuentran `copy`, `projects`, `experiences`, `education`, `certificates`, `skillGroups`, `contributions`, `approach` y `talkTopics`.
 
-- Añade el contenido en español y su traducción inglesa en la misma entrada.
-- Si todavía no existe traducción, el helper de certificados utiliza el texto español como respaldo.
-- Para mostrar una imagen de certificado, guarda el archivo en `public/certificates/` y añade `imagePath: "/certificates/nombre-del-archivo.webp"` al certificado correspondiente.
-- Las imágenes públicas deben estar optimizadas; WebP o AVIF son las opciones recomendadas.
+### Modificar un texto existente
 
-Después de modificar el contenido:
+Busca el campo dentro de `copy.es` y actualiza también su equivalente en `copy.en`:
+
+```ts
+// Español
+intro: "Nueva presentación profesional...",
+
+// Inglés
+intro: "New professional introduction...",
+```
+
+### Añadir un proyecto bilingüe
+
+Agrega un objeto al arreglo `projects`. Los campos que se muestran al visitante utilizan `{ es, en }`:
+
+```ts
+{
+  name: "Nombre del proyecto",
+  type: "Full Stack",
+  role: {
+    es: "Desarrollador Full Stack · Organización",
+    en: "Full Stack Developer · Organization",
+  },
+  description: {
+    es: "Descripción en español.",
+    en: "Description in English.",
+  },
+  result: {
+    es: "Resultado o métrica obtenida",
+    en: "Outcome or measured result",
+  },
+  stack: ["React", "NestJS", "PostgreSQL"],
+},
+```
+
+El valor de `type` debe coincidir con uno de los filtros existentes: `Backend`, `Full Stack`, `IA y datos` o `Cloud & DevOps`.
+
+### Añadir un certificado
+
+Los archivos se guardan en `public/certificates/`. En el código se referencian comenzando con `/certificates/`, nunca con `public/`.
+
+Ejemplo con una imagen local optimizada:
+
+```ts
+{
+  title: "Nombre del certificado",
+  titleEn: "Certificate name",
+  organization: "Entidad emisora",
+  period: "Agosto 2026 · 40 horas",
+  periodEn: "August 2026 · 40 hours",
+  summary: "Descripción en español.",
+  summaryEn: "Description in English.",
+  tags: ["TypeScript", "Cloud"],
+  category: "Full Stack",
+  preview: {
+    type: "image",
+    src: "/certificates/nombre-certificado.webp",
+  },
+  credentialUrl: "https://sitio-oficial.com/credencial",
+},
+```
+
+Para un PDF local, copia el documento en la misma carpeta y cambia la vista previa:
+
+```ts
+preview: {
+  type: "pdf",
+  src: "/certificates/nombre-certificado.pdf",
+},
+```
+
+Para Google Drive, configura el archivo como público para cualquiera con el enlace y utiliza la URL `/preview`:
+
+```ts
+preview: {
+  type: "embed",
+  src: "https://drive.google.com/file/d/ID_DEL_ARCHIVO/preview",
+},
+```
+
+Para Credly, Badgr u otro proveedor de badges, lo más estable es descargar la imagen del badge, guardarla en `public/certificates/`, usar `type: "image"` y colocar la página oficial en `credentialUrl`. Muchas plataformas bloquean su página dentro de un `iframe`, por lo que no conviene usar la URL pública como `embed` salvo que el proveedor confirme que lo permite.
+
+Formatos recomendados: WebP o AVIF para imágenes y PDF optimizado para documentos. Usa nombres en minúsculas, sin espacios ni acentos, por ejemplo `aws-cloud-practitioner.webp`.
+
+### Reglas bilingües
+
+- En objetos con estructura `{ es, en }`, completa ambos valores.
+- En certificados, español utiliza `title`, `period` y `summary`; inglés utiliza `titleEn`, `periodEn` y `summaryEn`.
+- Si temporalmente falta la traducción inglesa de un certificado, el sitio muestra el texto español como respaldo.
+- `organization`, nombres de tecnologías y nombres propios pueden permanecer iguales si no necesitan traducción.
+
+### Verificar y publicar una actualización
 
 ```bash
 npm run lint
 npm test
+git add .
+git commit -m "content: update portfolio information"
+git push origin main
 ```
+
+No publiques si `lint`, la compilación o las pruebas presentan errores.
 
 ## Formulario de contacto
 

@@ -12,7 +12,10 @@ export type Certificate = {
   tags: string[];
   category: string;
   credentialUrl?: string;
-  imagePath?: string;
+  preview?: {
+    type: "image" | "pdf" | "embed";
+    src: string;
+  };
 };
 
 export const copy = {
@@ -172,19 +175,19 @@ export const certificates: Certificate[] = [
 ];
 
 export const skillGroups = [
-  { icon: "<>", title: { es: "Frontend", en: "Frontend" }, lead: { es: "Interfaces accesibles, rápidas y orientadas al producto.", en: "Accessible, fast and product-oriented interfaces." }, items: ["Angular", "React", "Vue 3", "TypeScript", "Tailwind", "HTML · CSS"] },
-  { icon: "{}", title: { es: "Backend", en: "Backend" }, lead: { es: "APIs mantenibles, autenticación y arquitectura limpia.", en: "Maintainable APIs, authentication and clean architecture." }, items: ["NestJS", "Spring Boot 3", "Laravel 10", "Express", "REST · OpenAPI", "JWT · RBAC"] },
-  { icon: "◎", title: { es: "Datos e IA", en: "Data & AI" }, lead: { es: "Datos confiables e inteligencia aplicada a casos reales.", en: "Reliable data and intelligence applied to real use cases." }, items: ["PostgreSQL", "MongoDB", "Redis", "Azure OpenAI", "Pinecone", "scikit-learn"] },
-  { icon: "☁", title: { es: "Cloud & DevOps", en: "Cloud & DevOps" }, lead: { es: "Entrega automatizada, observabilidad e infraestructura.", en: "Automated delivery, observability and infrastructure." }, items: ["Docker", "GitHub Actions", "CI/CD", "AWS", "Azure", "Sentry · IaC"] },
-  { icon: "✓", title: { es: "Testing y calidad", en: "Testing & quality" }, lead: { es: "Calidad integrada desde el diseño hasta producción.", en: "Quality built in from design to production." }, items: ["TDD", "JUnit 5", "Mockito", "Unit tests", "Integration", "SOLID"] },
-  { icon: "⌁", title: { es: "Sistemas", en: "Systems" }, lead: { es: "Una mirada de ingeniería que une software y electrónica.", en: "An engineering perspective connecting software and electronics." }, items: ["Telemetría", "Monitoreo", "Automatización", "Redes", "Electrónica", "Soporte"] },
+  { icon: "frontend", title: { es: "Frontend", en: "Frontend" }, lead: { es: "Interfaces accesibles, rápidas y orientadas al producto.", en: "Accessible, fast and product-oriented interfaces." }, items: ["Angular", "React", "Vue 3", "TypeScript", "Tailwind", "HTML · CSS"] },
+  { icon: "backend", title: { es: "Backend", en: "Backend" }, lead: { es: "APIs mantenibles, autenticación y arquitectura limpia.", en: "Maintainable APIs, authentication and clean architecture." }, items: ["NestJS", "Spring Boot 3", "Laravel 10", "Express", "REST · OpenAPI", "JWT · RBAC"] },
+  { icon: "data", title: { es: "Datos e IA", en: "Data & AI" }, lead: { es: "Datos confiables e inteligencia aplicada a casos reales.", en: "Reliable data and intelligence applied to real use cases." }, items: ["PostgreSQL", "MongoDB", "Redis", "Azure OpenAI", "Pinecone", "scikit-learn"] },
+  { icon: "cloud", title: { es: "Cloud & DevOps", en: "Cloud & DevOps" }, lead: { es: "Entrega automatizada, observabilidad e infraestructura.", en: "Automated delivery, observability and infrastructure." }, items: ["Docker", "GitHub Actions", "CI/CD", "AWS", "Azure", "Sentry · IaC"] },
+  { icon: "quality", title: { es: "Testing y calidad", en: "Testing & quality" }, lead: { es: "Calidad integrada desde el diseño hasta producción.", en: "Quality built in from design to production." }, items: ["TDD", "JUnit 5", "Mockito", "Unit tests", "Integration", "SOLID"] },
+  { icon: "systems", title: { es: "Sistemas", en: "Systems" }, lead: { es: "Una mirada de ingeniería que une software y electrónica.", en: "An engineering perspective connecting software and electronics." }, items: ["Telemetría", "Monitoreo", "Automatización", "Redes", "Electrónica", "Soporte"] },
 ];
 
 export const contributions = [
-  { icon: "↗", title: { es: "Ejecución Full Stack", en: "Full stack execution" }, text: { es: "Puedo avanzar desde la interfaz y la API hasta los datos y el despliegue.", en: "I can move from the interface and API through data and deployment." } },
-  { icon: "◇", title: { es: "Arquitectura pragmática", en: "Pragmatic architecture" }, text: { es: "Elijo soluciones claras, mantenibles y proporcionadas al problema.", en: "I choose clear, maintainable solutions proportionate to the problem." } },
-  { icon: "☁", title: { es: "Cloud & DevOps", en: "Cloud & DevOps" }, text: { es: "Automatización, observabilidad y entregas repetibles desde el inicio.", en: "Automation, observability and repeatable delivery from the start." } },
-  { icon: "✦", title: { es: "IA aplicada", en: "Applied AI" }, text: { es: "Integro IA cuando mejora una tarea, una decisión o una métrica real.", en: "I use AI when it improves a task, a decision or a real metric." } },
+  { icon: "fullstack", title: { es: "Ejecución Full Stack", en: "Full stack execution" }, text: { es: "Puedo avanzar desde la interfaz y la API hasta los datos y el despliegue.", en: "I can move from the interface and API through data and deployment." } },
+  { icon: "architecture", title: { es: "Arquitectura pragmática", en: "Pragmatic architecture" }, text: { es: "Elijo soluciones claras, mantenibles y proporcionadas al problema.", en: "I choose clear, maintainable solutions proportionate to the problem." } },
+  { icon: "cloud", title: { es: "Cloud & DevOps", en: "Cloud & DevOps" }, text: { es: "Automatización, observabilidad y entregas repetibles desde el inicio.", en: "Automation, observability and repeatable delivery from the start." } },
+  { icon: "ai", title: { es: "IA aplicada", en: "Applied AI" }, text: { es: "Integro IA cuando mejora una tarea, una decisión o una métrica real.", en: "I use AI when it improves a task, a decision or a real metric." } },
 ];
 
 export const approach = [
@@ -196,9 +199,9 @@ export const approach = [
 ];
 
 export const talkTopics = [
-  { icon: "<>", title: { es: "Full Stack sin fricción", en: "Frictionless full stack" }, text: { es: "Contratos claros entre interfaz, API y datos.", en: "Clear contracts across interface, API and data." } },
-  { icon: "✦", title: { es: "IA útil en productos reales", en: "Useful AI in real products" }, text: { es: "Del prototipo a una integración medible y observable.", en: "From prototype to a measurable, observable integration." } },
-  { icon: "◉", title: { es: "Rendimiento y DevOps", en: "Performance & DevOps" }, text: { es: "Caché, telemetría y despliegues que reducen incertidumbre.", en: "Caching, telemetry and delivery that reduce uncertainty." } },
+  { icon: "frontend", title: { es: "Full Stack sin fricción", en: "Frictionless full stack" }, text: { es: "Contratos claros entre interfaz, API y datos.", en: "Clear contracts across interface, API and data." } },
+  { icon: "ai", title: { es: "IA útil en productos reales", en: "Useful AI in real products" }, text: { es: "Del prototipo a una integración medible y observable.", en: "From prototype to a measurable, observable integration." } },
+  { icon: "performance", title: { es: "Rendimiento y DevOps", en: "Performance & DevOps" }, text: { es: "Caché, telemetría y despliegues que reducen incertidumbre.", en: "Caching, telemetry and delivery that reduce uncertainty." } },
 ];
 
 export function localizeCertificate(item: Certificate, locale: Locale): Certificate {

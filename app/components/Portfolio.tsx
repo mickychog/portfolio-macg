@@ -4,7 +4,9 @@ import { FormEvent, useEffect, useMemo, useState } from "react";
 import Script from "next/script";
 import Image from "next/image";
 import { FaGithub, FaLinkedin, FaWhatsapp } from "react-icons/fa";
+import { FaBrain, FaCloud, FaCode, FaCompassDrafting, FaDatabase, FaGaugeHigh, FaLayerGroup, FaMicrochip, FaServer, FaShieldHalved } from "react-icons/fa6";
 import { SiGmail } from "react-icons/si";
+import type { IconType } from "react-icons";
 import {
   approach,
   certificates,
@@ -28,6 +30,23 @@ type Theme = "light" | "dark";
 const navigationIds = ["inicio", "stack", "sobre-mi", "proyectos", "experiencia", "formacion", "charlas", "contacto"];
 const canonicalFilters = ["Todos", "Backend", "Full Stack", "IA y datos", "Cloud & DevOps"];
 const whatsappUrl = "https://wa.me/59172084428?text=Hola%20Miguel%2C%20vi%20tu%20portafolio%20y%20me%20gustar%C3%ADa%20conversar%20contigo.";
+const cardIcons: Record<string, IconType> = {
+  frontend: FaCode,
+  backend: FaServer,
+  data: FaDatabase,
+  cloud: FaCloud,
+  quality: FaShieldHalved,
+  systems: FaMicrochip,
+  fullstack: FaLayerGroup,
+  architecture: FaCompassDrafting,
+  ai: FaBrain,
+  performance: FaGaugeHigh,
+};
+
+function CardIcon({ name }: { name: string }) {
+  const Icon = cardIcons[name] ?? FaCode;
+  return <Icon className="card-icon" aria-hidden="true" />;
+}
 
 export function Portfolio({ turnstileSiteKey }: { turnstileSiteKey?: string }) {
   const [locale, setLocale] = useState<Locale>("es");
@@ -51,6 +70,20 @@ export function Portfolio({ turnstileSiteKey }: { turnstileSiteKey?: string }) {
     }, 0);
     return () => window.clearTimeout(timer);
   }, []);
+
+  useEffect(() => {
+    if (!selectedCertificate) return;
+    const previousOverflow = document.body.style.overflow;
+    const closeOnEscape = (event: KeyboardEvent) => {
+      if (event.key === "Escape") setSelectedCertificate(null);
+    };
+    document.body.style.overflow = "hidden";
+    window.addEventListener("keydown", closeOnEscape);
+    return () => {
+      document.body.style.overflow = previousOverflow;
+      window.removeEventListener("keydown", closeOnEscape);
+    };
+  }, [selectedCertificate]);
 
   const changeTheme = () => {
     const next = theme === "dark" ? "light" : "dark";
@@ -145,14 +178,14 @@ export function Portfolio({ turnstileSiteKey }: { turnstileSiteKey?: string }) {
       <section className="section stack-section" id="stack" aria-labelledby="stack-title">
         <div className="section-heading" data-reveal><div><p className="section-index">01 / Stack & Skills</p><h2 id="stack-title">{t.stackTitle}</h2><p className="section-lead">{t.stackLead}</p></div></div>
         <div className="skill-grid">
-          {skillGroups.map((group) => <article className="skill-card" key={group.title.es} data-reveal><div className="skill-card-head"><span>{group.icon}</span><div><h3>{group.title[locale]}</h3><p>{group.lead[locale]}</p></div></div><ul>{group.items.map((item) => <li key={item}>{item}</li>)}</ul></article>)}
+          {skillGroups.map((group) => <article className="skill-card" key={group.title.es} data-reveal><div className="skill-card-head"><span><CardIcon name={group.icon} /></span><div><h3>{group.title[locale]}</h3><p>{group.lead[locale]}</p></div></div><ul>{group.items.map((item) => <li key={item}>{item}</li>)}</ul></article>)}
         </div>
         <div className="secondary-skills" data-reveal><article><span className="category">{t.alsoWork}</span><div>{["Java", "Python", "PHP", "C++", "MySQL", "Firebase", "Swagger"].map((item) => <small key={item}>{item}</small>)}</div></article><article><span className="category">{t.teamwork}</span><div>{["Scrum", "Agile", "Git", "Jira", "Remote", "Documentation"].map((item) => <small key={item}>{item}</small>)}</div></article></div>
       </section>
 
       <section className="section about-section" id="sobre-mi" aria-labelledby="about-title">
         <div className="about-intro" data-reveal><div><p className="section-index">02 / {locale === "es" ? "Sobre mí" : "About"}</p><h2 id="about-title">{t.aboutTitle}</h2></div><div className="about-copy">{t.aboutText.map((paragraph) => <p key={paragraph}>{paragraph}</p>)}<div className="focus-row"><span>{t.currentFocus}</span>{["Full Stack", "Cloud & DevOps", "Applied AI"].map((item) => <small key={item}>{item}</small>)}</div></div></div>
-        <div className="contribution-block"><h3 data-reveal>{t.contributionTitle}</h3><div className="contribution-grid">{contributions.map((item) => <article key={item.title.es} data-reveal><span>{item.icon}</span><h4>{item.title[locale]}</h4><p>{item.text[locale]}</p></article>)}</div></div>
+        <div className="contribution-block"><h3 data-reveal>{t.contributionTitle}</h3><div className="contribution-grid">{contributions.map((item) => <article key={item.title.es} data-reveal><span><CardIcon name={item.icon} /></span><h4>{item.title[locale]}</h4><p>{item.text[locale]}</p></article>)}</div></div>
         <div className="approach-block" data-reveal><h3>{t.approachTitle}</h3><ol>{approach.map((step) => <li key={step.n}><span>{step.n}</span><strong>{step[locale]}</strong><p>{step.text[locale]}</p></li>)}</ol></div>
       </section>
 
@@ -181,7 +214,7 @@ export function Portfolio({ turnstileSiteKey }: { turnstileSiteKey?: string }) {
       <section className="section talks-section" id="charlas" aria-labelledby="talks-title">
         <MeteorCanvas />
         <div className="talks-heading" data-reveal><div><p className="section-index">06 / {locale === "es" ? "Charlas y comunidad" : "Speaking & community"}</p><h2 id="talks-title">{t.talksTitle}</h2><p className="section-lead">{t.talksLead}</p><a className="secondary-button has-tooltip" data-tooltip={t.tooltips.linkedin} href="https://linkedin.com/in/miguel-choque-garcia" target="_blank" rel="noreferrer">{t.talksCta} ↗</a></div><div className="talk-feature"><span>{t.talksSoon}</span><strong>MACG / TALKS</strong><small>Full Stack · Cloud · AI</small></div></div>
-        <div className="talk-grid">{talkTopics.map((topic) => <article key={topic.title.es} data-reveal><span>{topic.icon}</span><div><h3>{topic.title[locale]}</h3><p>{topic.text[locale]}</p></div><small>{t.talksSoon}</small></article>)}</div>
+        <div className="talk-grid">{talkTopics.map((topic) => <article key={topic.title.es} data-reveal><span><CardIcon name={topic.icon} /></span><div><h3>{topic.title[locale]}</h3><p>{topic.text[locale]}</p></div><small>{t.talksSoon}</small></article>)}</div>
       </section>
 
       <section className="contact section" id="contacto" aria-labelledby="contact-title">
@@ -194,7 +227,7 @@ export function Portfolio({ turnstileSiteKey }: { turnstileSiteKey?: string }) {
         <div className="footer-bottom"><span>© {new Date().getFullYear()} Miguel Angel Choque Garcia</span><span>{t.footerMade} 🇧🇴</span><a href="#inicio">{locale === "es" ? "Volver arriba" : "Back to top"} ↑</a></div>
       </footer>
 
-      {selectedCertificate && <div className="modal-backdrop"><section className="certificate-modal" role="dialog" aria-modal="true" aria-labelledby="certificate-title"><button className="modal-close" type="button" onClick={() => setSelectedCertificate(null)} aria-label={t.close}>×</button><p className="section-index">{locale === "es" ? "Credencial" : "Credential"}</p><h2 id="certificate-title">{selectedCertificate.title}</h2><h3>{selectedCertificate.organization}</h3><p>{selectedCertificate.summary}</p><ul className="tag-list">{selectedCertificate.tags.map((tag) => <li key={tag}>{tag}</li>)}</ul>{selectedCertificate.imagePath ? <div className="certificate-image-wrap"><Image src={selectedCertificate.imagePath} alt={`${selectedCertificate.title} — ${selectedCertificate.organization}`} width={1400} height={900} /></div> : <div className="certificate-preview"><span aria-hidden="true">◇</span><p>{locale === "es" ? "La imagen verificable del certificado estará disponible próximamente." : "The verifiable certificate image will be available soon."}</p></div>}{selectedCertificate.credentialUrl && <a className="primary-button" href={selectedCertificate.credentialUrl} target="_blank" rel="noreferrer">{locale === "es" ? "Ver credencial verificada" : "View verified credential"}</a>}</section></div>}
+      {selectedCertificate && <div className="modal-backdrop"><button className="modal-dismiss-layer" type="button" onClick={() => setSelectedCertificate(null)} aria-label={t.close} /><section className="certificate-modal" role="dialog" aria-modal="true" aria-labelledby="certificate-title"><button className="modal-close" type="button" onClick={() => setSelectedCertificate(null)} aria-label={t.close}>×</button><p className="section-index">{locale === "es" ? "Credencial" : "Credential"}</p><h2 id="certificate-title">{selectedCertificate.title}</h2><h3>{selectedCertificate.organization}</h3><p>{selectedCertificate.summary}</p><ul className="tag-list">{selectedCertificate.tags.map((tag) => <li key={tag}>{tag}</li>)}</ul>{selectedCertificate.preview?.type === "image" && <div className="certificate-image-wrap"><Image src={selectedCertificate.preview.src} alt={`${selectedCertificate.title} — ${selectedCertificate.organization}`} width={1400} height={900} /></div>}{selectedCertificate.preview?.type === "pdf" && <div className="certificate-document-wrap"><iframe src={selectedCertificate.preview.src} title={`${selectedCertificate.title} — PDF`} loading="lazy" /></div>}{selectedCertificate.preview?.type === "embed" && <div className="certificate-document-wrap"><iframe src={selectedCertificate.preview.src} title={`${selectedCertificate.title} — ${selectedCertificate.organization}`} loading="lazy" referrerPolicy="strict-origin-when-cross-origin" allow="fullscreen" /></div>}{!selectedCertificate.preview && <div className="certificate-preview"><span aria-hidden="true">◇</span><p>{locale === "es" ? "La vista previa verificable del certificado estará disponible próximamente." : "The verifiable certificate preview will be available soon."}</p></div>}{selectedCertificate.credentialUrl && <a className="primary-button" href={selectedCertificate.credentialUrl} target="_blank" rel="noreferrer">{locale === "es" ? "Ver credencial verificada" : "View verified credential"}</a>}</section></div>}
     </main>
   );
 }
