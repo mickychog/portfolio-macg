@@ -38,6 +38,7 @@ import {
   localizeCertificate,
   projects,
   skillGroups,
+  talks,
   talkTopics,
   type Locale,
   type Certificate,
@@ -105,6 +106,7 @@ export function Portfolio({ turnstileSiteKey }: { turnstileSiteKey?: string }) {
   const [formStatus, setFormStatus] = useState("");
   const [profileImageLoaded, setProfileImageLoaded] = useState(false);
   const t = copy[locale];
+  const featuredTalk = talks[0];
 
   useEffect(() => {
     const timer = window.setTimeout(() => {
@@ -717,12 +719,45 @@ export function Portfolio({ turnstileSiteKey }: { turnstileSiteKey?: string }) {
               {t.talksCta} ↗
             </a>
           </div>
-          <div className="talk-feature">
-            <span>{t.talksSoon}</span>
-            <strong>MACG / TALKS</strong>
-            <small>Full Stack · Cloud · AI</small>
-          </div>
+          <article className="talk-feature">
+            <Image
+              className="talk-feature-image"
+              src={featuredTalk.image}
+              alt={featuredTalk.imageAlt[locale]}
+              fill
+              sizes="(max-width: 920px) 100vw, 42vw"
+            />
+            <span className="talk-feature-badge">{t.talksDelivered}</span>
+            <div className="talk-feature-content">
+              <small>{featuredTalk.event}</small>
+              <h3>{featuredTalk.title[locale]}</h3>
+              <p>{featuredTalk.description[locale]}</p>
+              <div
+                className="talk-feature-tags"
+                aria-label={
+                  locale === "es" ? "Tecnologías de la charla" : "Talk technologies"
+                }
+              >
+                {featuredTalk.tags.map((tag) => (
+                  <span key={tag}>{tag}</span>
+                ))}
+              </div>
+              <div className="talk-feature-footer">
+                <span>{featuredTalk.date[locale]} · {featuredTalk.location}</span>
+                <a
+                  className="talk-feature-link has-tooltip"
+                  data-tooltip={t.tooltips.talkPost}
+                  href={featuredTalk.postUrl}
+                  target="_blank"
+                  rel="noreferrer"
+                >
+                  {t.talksViewPost} ↗
+                </a>
+              </div>
+            </div>
+          </article>
         </div>
+        <p className="talk-more-label" data-reveal>{t.talksMore}</p>
         <div className="talk-grid">
           {talkTopics.map((topic) => (
             <article key={topic.title.es} data-reveal>
@@ -733,7 +768,7 @@ export function Portfolio({ turnstileSiteKey }: { turnstileSiteKey?: string }) {
                 <h3>{topic.title[locale]}</h3>
                 <p>{topic.text[locale]}</p>
               </div>
-              <small>{t.talksSoon}</small>
+              <small>{t.talksTopic}</small>
             </article>
           ))}
         </div>
