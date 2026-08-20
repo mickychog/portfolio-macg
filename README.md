@@ -27,7 +27,7 @@ Abre `http://localhost:3000`.
 
 ## Guía para actualizar el contenido
 
-La fuente principal es `lib/portfolio-data.ts`. Allí se encuentran `copy`, `heroTechnologies`, `projects`, `experiences`, `education`, `certificates`, `skillGroups`, `contributions`, `approach` y `talkTopics`.
+La fuente principal es `lib/portfolio-data.ts`. Allí se encuentran `copy`, `heroTechnologies`, `projects`, `experiences`, `education`, `certificates`, `skillGroups`, `contributions`, `approach`, `talks` y `talkTopics`.
 
 Los siguientes ejemplos muestran la estructura exacta que acepta actualmente el sitio. Añade cada objeto dentro del arreglo correspondiente, separado por una coma.
 
@@ -229,7 +229,31 @@ Agrega un objeto a `approach`. Mantén `n` consecutivo porque se muestra dentro 
 
 ### Añadir una charla o tema de charla
 
-Agrega un objeto a `talkTopics`:
+Las charlas ya impartidas se encuentran en `talks`. Usa este formato:
+
+```ts
+{
+  title: { es: "Kubernetes en tu Laptop", en: "Kubernetes on Your Laptop" },
+  event: "FLISOL Sucre 2026",
+  date: { es: "24 de abril de 2026", en: "April 24, 2026" },
+  location: "Sucre, Bolivia",
+  description: {
+    es: "Descripción breve de la charla.",
+    en: "Short talk description.",
+  },
+  image: "/images/talks/flisol-2026-kubernetes.webp",
+  imageAlt: {
+    es: "Descripción accesible de la fotografía",
+    en: "Accessible description of the photograph",
+  },
+  postUrl: "https://www.linkedin.com/posts/...",
+  tags: ["Kubernetes", "DevOps", "Linux"],
+},
+```
+
+Guarda sus imágenes en `public/images/talks/`, preferiblemente en WebP y con menos de 500 KB. La ruta usada en TypeScript comienza en `/images/talks/`, sin incluir `public`.
+
+Los temas disponibles para futuras charlas se encuentran en `talkTopics`:
 
 ```ts
 {
@@ -245,7 +269,7 @@ Agrega un objeto a `talkTopics`:
 },
 ```
 
-Actualmente estas tarjetas representan temas propuestos y muestran el estado “Próximamente”. Cuando exista una charla publicada, conviene ampliar el tipo con fecha, evento y URL del video o diapositivas, y mostrar esos campos en `app/components/Portfolio.tsx`.
+Estas tarjetas se muestran debajo de las charlas realizadas como temas sobre los que también puedes hablar.
 
 ### Cambiar enlaces de contacto y redes
 

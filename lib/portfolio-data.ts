@@ -56,8 +56,12 @@ export const copy = {
     experienceTitle: "Experiencia",
     educationTitle: "Formación y certificaciones",
     talksTitle: "Compartir lo aprendido también es construir.",
-    talksLead: "Estoy preparando charlas técnicas y demos prácticas. Esta sección reunirá presentaciones, eventos y recursos cuando sean publicados.",
+    talksLead: "Comparto experiencias técnicas, herramientas y aprendizajes prácticos con comunidades de tecnología y software libre.",
     talksSoon: "Próximamente",
+    talksDelivered: "Charla impartida",
+    talksMore: "También puedo hablar sobre",
+    talksTopic: "Tema disponible",
+    talksViewPost: "Ver publicación",
     talksCta: "Conversemos sobre una charla",
     contactTitle: "Construyamos algo sólido",
     contactLead: "¿Tienes un producto, una oportunidad o una idea? Cuéntame el contexto y te responderé directamente por correo.",
@@ -80,6 +84,7 @@ export const copy = {
       linkedin: "Conectar conmigo en LinkedIn",
       email: "Escribirme por correo electrónico",
       whatsapp: "Enviarme un mensaje por WhatsApp",
+      talkPost: "Ver la publicación de la charla en LinkedIn",
     },
   },
   en: {
@@ -119,8 +124,12 @@ export const copy = {
     experienceTitle: "Experience",
     educationTitle: "Education and certifications",
     talksTitle: "Sharing what I learn is also a way to build.",
-    talksLead: "I’m preparing technical talks and practical demos. This section will collect presentations, events and resources as they are published.",
+    talksLead: "I share technical experiences, tools and practical lessons with technology and open-source communities.",
     talksSoon: "Coming soon",
+    talksDelivered: "Delivered talk",
+    talksMore: "I can also speak about",
+    talksTopic: "Available topic",
+    talksViewPost: "View post",
     talksCta: "Let’s discuss a talk",
     contactTitle: "Let’s build something solid",
     contactLead: "Have a product, an opportunity or an idea? Tell me the context and I’ll reply directly by email.",
@@ -143,6 +152,7 @@ export const copy = {
       linkedin: "Connect with me on LinkedIn",
       email: "Send me an email",
       whatsapp: "Send me a WhatsApp message",
+      talkPost: "View the talk post on LinkedIn",
     },
   },
 } as const;
@@ -200,6 +210,26 @@ export const approach = [
   { n: "03", icon: "build", es: "Construir de punta a punta", en: "Build end to end", text: { es: "Conectar interfaz, API, datos e infraestructura en un flujo coherente.", en: "Connect interface, API, data and infrastructure into one coherent flow." } },
   { n: "04", icon: "validate", es: "Validar y automatizar", en: "Validate and automate", text: { es: "Probar lo importante y automatizar entregas repetibles.", en: "Test what matters and automate repeatable delivery." } },
   { n: "05", icon: "measure", es: "Medir y evolucionar", en: "Measure and evolve", text: { es: "Observar el producto, aprender y volver al problema con evidencia.", en: "Observe the product, learn and return to the problem with evidence." } },
+];
+
+export const talks = [
+  {
+    title: { es: "Kubernetes en tu Laptop", en: "Kubernetes on Your Laptop" },
+    event: "FLISOL Sucre 2026",
+    date: { es: "24 de abril de 2026", en: "April 24, 2026" },
+    location: "Sucre, Bolivia",
+    description: {
+      es: "Mi primera charla técnica, enfocada en acercar Kubernetes y DevOps a entornos locales de aprendizaje y experimentación.",
+      en: "My first technical talk, focused on bringing Kubernetes and DevOps to local learning and experimentation environments.",
+    },
+    image: "/images/talks/flisol-2026-kubernetes.webp",
+    imageAlt: {
+      es: "Miguel Angel Choque Garcia durante la charla Kubernetes en tu Laptop en FLISOL Sucre 2026",
+      en: "Miguel Angel Choque Garcia speaking about Kubernetes on Your Laptop at FLISOL Sucre 2026",
+    },
+    postUrl: "https://www.linkedin.com/posts/miguel-choque-garcia_flisol2026-sucre-devops-activity-7458166562500341760-X6sG",
+    tags: ["Kubernetes", "DevOps", "Linux", "Software Libre"],
+  },
 ];
 
 export const talkTopics = [
