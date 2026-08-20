@@ -5,6 +5,7 @@ import Script from "next/script";
 import Image from "next/image";
 import {
   certificates,
+  certificateEnglish,
   copy,
   education,
   experiences,
@@ -157,7 +158,7 @@ export function Portfolio({ managedItems, turnstileSiteKey }: { managedItems: Ma
       <section className="section" id="experiencia" aria-labelledby="experience-title">
         <p className="section-index">02 / Trayectoria</p><h2 id="experience-title">{t.experienceTitle}</h2>
         <div className="timeline">
-          {experiences.map((experience) => <article className="timeline-item" key={`${experience.company}-${experience.period}`}><time>{experience.period}</time><div className="timeline-dot" /><div><span className="category">{experience.category}</span><h3>{experience.role}</h3><h4>{experience.company}</h4><p>{experience.description}</p></div></article>)}
+          {experiences.map((experience) => <article className="timeline-item" key={`${experience.company}-${experience.period.es}`}><time>{experience.period[locale]}</time><div className="timeline-dot" /><div><span className="category">{experience.category}</span><h3>{experience.role[locale]}</h3><h4>{experience.company}</h4><p>{experience.description[locale]}</p></div></article>)}
           {allExperiences.map((item) => <article className="timeline-item" key={`managed-exp-${item.id}`}><time>{item.period}</time><div className="timeline-dot" /><div><span className="category">{item.category}</span><h3>{item.title}</h3><h4>{item.organization}</h4><p>{item.summary}</p></div></article>)}
         </div>
       </section>
@@ -165,10 +166,10 @@ export function Portfolio({ managedItems, turnstileSiteKey }: { managedItems: Ma
       <section className="section" id="formacion" aria-labelledby="education-title">
         <p className="section-index">03 / Aprendizaje</p><h2 id="education-title">{t.educationTitle}</h2>
         <div className="education-grid">
-          {education.map((item) => <article className="education-card" key={item.degree}><span>{item.period}</span><h3>{item.degree}</h3><p>{item.institution}</p><strong>{item.status}</strong></article>)}
+          {education.map((item) => <article className="education-card" key={item.degree.es}><span>{item.period}</span><h3>{item.degree[locale]}</h3><p>{item.institution}</p><strong>{item.status[locale]}</strong></article>)}
         </div>
         <div className="certificate-grid">
-          {allCertificates.map((certificate, index) => <article className="certificate-card" key={`${certificate.title}-${index}`}><div><span>{certificate.organization}</span><h3>{certificate.title}</h3><p>{certificate.period}</p></div><button type="button" onClick={() => setSelectedCertificate(certificate)}>{t.certificate} <span aria-hidden="true">↗</span></button></article>)}
+          {allCertificates.map((certificate, index) => { const translated = locale === "en" ? certificateEnglish[certificate.title] : undefined; const shown = translated ? { ...certificate, ...translated } : certificate; return <article className="certificate-card" key={`${certificate.title}-${index}`}><div><span>{certificate.organization}</span><h3>{shown.title}</h3><p>{shown.period}</p></div><button type="button" onClick={() => setSelectedCertificate(shown)}>{t.certificate} <span aria-hidden="true">↗</span></button></article>; })}
         </div>
       </section>
 

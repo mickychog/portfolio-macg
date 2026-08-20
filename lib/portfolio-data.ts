@@ -74,17 +74,24 @@ export const projects = [
 ];
 
 export const experiences = [
-  { period: "2026 — Actualidad", company: "Fiscalía General del Estado", role: "Pasante de Ingeniería", category: "Infraestructura", description: "Despliegue de software, telemetría, monitoreo y automatización de soporte aplicando principios de Infrastructure as Code." },
-  { period: "Oct — Dic 2025", company: "No Country · ConnectFlow", role: "Desarrollador Backend", category: "Backend", description: "CRM inteligente, integraciones con WhatsApp Cloud API y servicios de correo, APIs documentadas y flujo CI/CD." },
-  { period: "Sep — Oct 2025", company: "No Country · MediConnect", role: "Desarrollador Full Stack", category: "Full Stack", description: "Backend Node.js, frontend Angular, autenticación JWT, RBAC y diseño de datos clínicos en PostgreSQL." },
-  { period: "Abr — Ago 2025", company: "Foo Talent", role: "Desarrollador Backend", category: "Backend", description: "Talent Match y Buggle: IA generativa, búsqueda vectorial, caché Redis, trazabilidad de errores y monitoreo de producción." },
-  { period: "Ene — Mar 2025", company: "No Country", role: "Backend y Machine Learning", category: "IA y datos", description: "API REST para Fit Lover y modelo de detección de fraude con AUC-ROC de 0.99." },
+  { period: { es: "2026 — Actualidad", en: "2026 — Present" }, company: "Fiscalía General del Estado", role: { es: "Pasante de Ingeniería", en: "Engineering Intern" }, category: "Infraestructura", description: { es: "Despliegue de software, telemetría, monitoreo y automatización de soporte aplicando principios de Infrastructure as Code.", en: "Software deployment, telemetry, monitoring and support automation applying Infrastructure as Code principles." } },
+  { period: { es: "Oct — Dic 2025", en: "Oct — Dec 2025" }, company: "No Country · ConnectFlow", role: { es: "Desarrollador Backend", en: "Backend Developer" }, category: "Backend", description: { es: "CRM inteligente, integraciones con WhatsApp Cloud API y servicios de correo, APIs documentadas y flujo CI/CD.", en: "Smart CRM, WhatsApp Cloud API and email integrations, documented APIs and CI/CD workflow." } },
+  { period: { es: "Sep — Oct 2025", en: "Sep — Oct 2025" }, company: "No Country · MediConnect", role: { es: "Desarrollador Full Stack", en: "Full Stack Developer" }, category: "Full Stack", description: { es: "Backend Node.js, frontend Angular, autenticación JWT, RBAC y diseño de datos clínicos en PostgreSQL.", en: "Node.js backend, Angular frontend, JWT authentication, RBAC and clinical data design in PostgreSQL." } },
+  { period: { es: "Abr — Ago 2025", en: "Apr — Aug 2025" }, company: "Foo Talent", role: { es: "Desarrollador Backend", en: "Backend Developer" }, category: "Backend", description: { es: "Talent Match y Buggle: IA generativa, búsqueda vectorial, caché Redis, trazabilidad de errores y monitoreo de producción.", en: "Talent Match and Buggle: generative AI, vector search, Redis caching, error tracing and production monitoring." } },
+  { period: { es: "Ene — Mar 2025", en: "Jan — Mar 2025" }, company: "No Country", role: { es: "Backend y Machine Learning", en: "Backend and Machine Learning" }, category: "IA y datos", description: { es: "API REST para Fit Lover y modelo de detección de fraude con AUC-ROC de 0.99.", en: "REST API for Fit Lover and a fraud detection model with 0.99 AUC-ROC." } },
 ];
 
 export const education = [
-  { degree: "Ingeniería en Ciencias de la Computación", institution: "USFX", period: "2019 — 2026", status: "Noveno semestre" },
-  { degree: "Ingeniería Electrónica", institution: "USFX", period: "2017 — 2025", status: "Egresado" },
+  { degree: { es: "Ingeniería en Ciencias de la Computación", en: "Computer Science Engineering" }, institution: "USFX", period: "2019 — 2026", status: { es: "Noveno semestre", en: "Ninth semester" } },
+  { degree: { es: "Ingeniería Electrónica", en: "Electronic Engineering" }, institution: "USFX", period: "2017 — 2025", status: { es: "Egresado", en: "Graduate" } },
 ];
+
+export const certificateEnglish: Record<string, { title: string; summary: string; period: string }> = {
+  "Especialización Backend Java": { title: "Java Backend Specialization", summary: "Java, Spring Boot 3, JPA/Hibernate, REST API security, JUnit and Mockito.", period: "July 2024 · 286 hours" },
+  "Ethical Hacker e Introduction to Cybersecurity": { title: "Ethical Hacker and Introduction to Cybersecurity", summary: "Attack vectors, network protection, CIA fundamentals and API security.", period: "Sep — Nov 2024" },
+  "Cloud Computing e Inteligencia Artificial": { title: "Cloud Computing and Artificial Intelligence", summary: "LLM foundations, cloud generative AI, machine learning and AI ethics.", period: "Jun — Sep 2025" },
+  "Desarrollo Full Stack PHP": { title: "Full Stack PHP Development", summary: "CRUD applications with Laravel 10, Vue 3, authentication and MVC architecture.", period: "December 2023 · 38 hours" },
+};
 
 export const certificates: ManagedItem[] = [
   { type: "certificate", title: "Especialización Backend Java", organization: "Oracle ONE · Alura Latam", period: "Julio 2024 · 286 horas", summary: "Java, Spring Boot 3, JPA/Hibernate, seguridad en APIs REST, JUnit y Mockito.", tags: ["Java", "Spring Boot", "Testing"], category: "Backend" },
