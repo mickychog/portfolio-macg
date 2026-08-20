@@ -52,6 +52,7 @@ export const copy = {
     approachTitle: "Mi enfoque",
     projectsTitle: "Proyectos seleccionados",
     projectsLead: "Productos reales, retos técnicos concretos y resultados que se pueden medir.",
+    viewCode: "Ver código",
     experienceTitle: "Experiencia",
     educationTitle: "Formación y certificaciones",
     talksTitle: "Compartir lo aprendido también es construir.",
@@ -114,6 +115,7 @@ export const copy = {
     approachTitle: "My approach",
     projectsTitle: "Selected projects",
     projectsLead: "Real products, concrete technical challenges and measurable outcomes.",
+    viewCode: "View code",
     experienceTitle: "Experience",
     educationTitle: "Education and certifications",
     talksTitle: "Sharing what I learn is also a way to build.",
@@ -148,10 +150,10 @@ export const copy = {
 export const heroTechnologies = ["TypeScript", "Angular", "React", "NestJS", "Spring Boot", "PostgreSQL", "Docker", "AWS · Azure"];
 
 export const projects = [
-  { name: "Talent Match", type: "IA y datos", role: { es: "Backend · Foo Talent", en: "Backend · Foo Talent" }, description: { es: "Plataforma de matching de talento con procesamiento inteligente de CVs y búsqueda vectorial de candidatos.", en: "Talent matching platform with intelligent résumé processing and vector candidate search." }, result: { es: "1.er lugar · Smart Projects 2025", en: "1st place · Smart Projects 2025" }, stack: ["NestJS", "Azure OpenAI", "Pinecone", "Redis"] },
-  { name: "ConnectFlow", type: "Backend", role: { es: "Backend · No Country", en: "Backend · No Country" }, description: { es: "CRM inteligente para automatizar comunicaciones, segmentar usuarios y programar recordatorios multicanal.", en: "Smart CRM for automated communication, user segmentation and multichannel reminders." }, result: { es: "6+ endpoints REST documentados", en: "6+ documented REST endpoints" }, stack: ["Node.js", "WhatsApp API", "Brevo", "Swagger"] },
+  { name: "Talent Match", type: "IA y datos", role: { es: "Backend · Foo Talent", en: "Backend · Foo Talent" }, description: { es: "Plataforma de matching de talento con procesamiento inteligente de CVs y búsqueda vectorial de candidatos.", en: "Talent matching platform with intelligent résumé processing and vector candidate search." }, result: { es: "1.er lugar · Smart Projects 2025", en: "1st place · Smart Projects 2025" }, stack: ["NestJS", "Azure OpenAI", "Pinecone", "Redis"], codeUrl: "https://github.com/jonanfu/backend-foo-talent" },
+  { name: "ConnectFlow", type: "Backend", role: { es: "Backend · No Country", en: "Backend · No Country" }, description: { es: "CRM inteligente para automatizar comunicaciones, segmentar usuarios y programar recordatorios multicanal.", en: "Smart CRM for automated communication, user segmentation and multichannel reminders." }, result: { es: "6+ endpoints REST documentados", en: "6+ documented REST endpoints" }, stack: ["Node.js", "WhatsApp API", "Brevo", "Swagger"], codeUrl: "https://github.com/G33-NoCountry/startup-crm" },
   { name: "MediConnect", type: "Full Stack", role: { es: "Full Stack · No Country", en: "Full Stack · No Country" }, description: { es: "Portal de telemedicina con historias clínicas, autenticación JWT y autorización basada en roles.", en: "Telemedicine portal with electronic health records, JWT authentication and role-based authorization." }, result: { es: "PostgreSQL normalizado en 3FN", en: "PostgreSQL normalized to 3NF" }, stack: ["Angular", "Node.js", "PostgreSQL", "Tailwind"] },
-  { name: "Fraud Detection", type: "IA y datos", role: { es: "Machine Learning · No Country", en: "Machine Learning · No Country" }, description: { es: "Modelo de detección de fraude con balanceo de clases, análisis exploratorio y feature engineering.", en: "Fraud detection model with class balancing, exploratory analysis and feature engineering." }, result: { es: "AUC-ROC 0.99", en: "AUC-ROC 0.99" }, stack: ["Python", "scikit-learn", "SMOTE", "pandas"] },
+  { name: "Fraud Detection", type: "IA y datos", role: { es: "Machine Learning · No Country", en: "Machine Learning · No Country" }, description: { es: "Modelo de detección de fraude con balanceo de clases, análisis exploratorio y feature engineering.", en: "Fraud detection model with class balancing, exploratory analysis and feature engineering." }, result: { es: "AUC-ROC 0.99", en: "AUC-ROC 0.99" }, stack: ["Python", "scikit-learn", "SMOTE", "pandas"], codeUrl: "https://github.com/No-Country-simulation/equipo-c23-13-data" },
 ];
 
 export const experiences = [

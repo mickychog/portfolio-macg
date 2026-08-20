@@ -91,10 +91,11 @@ Agrega un objeto al arreglo `projects`. Los campos que se muestran al visitante 
     en: "Outcome or measured result",
   },
   stack: ["React", "NestJS", "PostgreSQL"],
+  codeUrl: "https://github.com/usuario/repositorio",
 },
 ```
 
-El valor de `type` debe coincidir con uno de los filtros existentes: `Backend`, `Full Stack`, `IA y datos` o `Cloud & DevOps`.
+El valor de `type` debe coincidir con uno de los filtros existentes: `Backend`, `Full Stack`, `IA y datos` o `Cloud & DevOps`. `codeUrl` es opcional: si contiene una URL, la tarjeta muestra el botón “Ver código”; si se omite, no se presenta el botón.
 
 ### Añadir experiencia
 
