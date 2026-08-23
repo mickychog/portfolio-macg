@@ -14,6 +14,11 @@ const attempts = new Map<string, { count: number; resetAt: number }>();
 function isRateLimited(request: Request) {
   const key = request.headers.get("cf-connecting-ip") ?? request.headers.get("x-forwarded-for") ?? "unknown";
   const now = Date.now();
+  if (attempts.size > 256) {
+    for (const [ip, entry] of attempts) {
+      if (entry.resetAt < now) attempts.delete(ip);
+    }
+  }
   const current = attempts.get(key);
   if (!current || current.resetAt < now) {
     attempts.set(key, { count: 1, resetAt: now + 60_000 });

@@ -132,9 +132,10 @@ Agrega un objeto a `education`:
 
 ### Añadir un certificado
 
-Los archivos se guardan en `public/certificates/`. En el código se referencian comenzando con `/certificates/`, nunca con `public/`.
+El portafolio admite 3 opciones según tus preferencias:
 
-Ejemplo con una imagen local optimizada:
+#### Opción A: Solo enlace externo (Credly, LinkedIn, Drive) — Sin archivos locales
+Si solo deseas que la tarjeta abra un enlace de verificación sin visor interno, omite la propiedad `preview`:
 
 ```ts
 {
@@ -147,33 +148,34 @@ Ejemplo con una imagen local optimizada:
   summaryEn: "Description in English.",
   tags: ["TypeScript", "Cloud"],
   category: "Full Stack",
+  credentialUrl: "https://www.credly.com/users/tu-usuario",
+}
+```
+
+#### Opción B: Google Drive Embebido — Sin archivos locales
+Si el PDF está en Google Drive y quieres previsualizarlo directamente en el modal sin subir archivos al repositorio, asegúrate de que el archivo en Drive sea público y utiliza la URL `/preview`:
+
+```ts
+{
+  title: "Nombre del certificado",
+  // ...
+  credentialUrl: "https://drive.google.com/file/d/ID_DEL_ARCHIVO/view?usp=sharing",
   preview: {
-    type: "image",
-    src: "/certificates/nombre-certificado.webp",
+    type: "embed",
+    src: "https://drive.google.com/file/d/ID_DEL_ARCHIVO/preview",
   },
-  credentialUrl: "https://sitio-oficial.com/credencial",
-},
+}
 ```
 
-Para un PDF local, copia el documento en la misma carpeta y cambia la vista previa:
+#### Opción C: Imagen o PDF Local
+Guarda los archivos en `public/certificates/`. En el código se referencian comenzando con `/certificates/`, nunca con `public/`:
 
 ```ts
 preview: {
-  type: "pdf",
-  src: "/certificates/nombre-certificado.pdf",
+  type: "image", // o "pdf"
+  src: "/certificates/nombre-certificado.webp",
 },
 ```
-
-Para Google Drive, configura el archivo como público para cualquiera con el enlace y utiliza la URL `/preview`:
-
-```ts
-preview: {
-  type: "embed",
-  src: "https://drive.google.com/file/d/ID_DEL_ARCHIVO/preview",
-},
-```
-
-Para Credly, Badgr u otro proveedor de badges, lo más estable es descargar la imagen del badge, guardarla en `public/certificates/`, usar `type: "image"` y colocar la página oficial en `credentialUrl`. Muchas plataformas bloquean su página dentro de un `iframe`, por lo que no conviene usar la URL pública como `embed` salvo que el proveedor confirme que lo permite.
 
 Formatos recomendados: WebP o AVIF para imágenes y PDF optimizado para documentos. Usa nombres en minúsculas, sin espacios ni acentos, por ejemplo `aws-cloud-practitioner.webp`.
 

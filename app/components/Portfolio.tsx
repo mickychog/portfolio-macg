@@ -1,6 +1,6 @@
 "use client";
 
-import { FormEvent, useEffect, useMemo, useState } from "react";
+import { FormEvent, useCallback, useEffect, useMemo, useRef, useState } from "react";
 import Script from "next/script";
 import Image from "next/image";
 import { FaGithub, FaLinkedin, FaWhatsapp } from "react-icons/fa";
@@ -66,8 +66,10 @@ const canonicalFilters = [
   "IA y datos",
   "Cloud & DevOps",
 ];
-const whatsappUrl =
-  "https://wa.me/59172084428?text=Hola%20Miguel%2C%20vi%20tu%20portafolio%20y%20me%20gustar%C3%ADa%20conversar%20contigo.";
+const whatsappMessages: Record<Locale, string> = {
+  es: "https://wa.me/59172084428?text=Hola%20Miguel%2C%20vi%20tu%20portafolio%20y%20me%20gustar%C3%ADa%20conversar%20contigo.",
+  en: "https://wa.me/59172084428?text=Hi%20Miguel%2C%20I%20saw%20your%20portfolio%20and%20would%20like%20to%20connect.",
+};
 const profileImagePath = "/images/profile.webp";
 const cardIcons: Record<string, IconType> = {
   frontend: FaCode,
@@ -106,15 +108,22 @@ function CardIcon({ name }: { name: string }) {
 
 export function Portfolio({ turnstileSiteKey }: { turnstileSiteKey?: string }) {
   const [locale, setLocale] = useState<Locale>("es");
-  const [theme, setTheme] = useState<Theme>("dark");
+  const [theme, setTheme] = useState<Theme>(() =>
+    typeof document !== "undefined"
+      ? (document.documentElement.dataset.theme as Theme) ?? "dark"
+      : "dark",
+  );
   const [filterIndex, setFilterIndex] = useState(0);
   const [selectedCertificate, setSelectedCertificate] =
     useState<Certificate | null>(null);
   const [menuOpen, setMenuOpen] = useState(false);
   const [formStatus, setFormStatus] = useState("");
   const [profileImageLoaded, setProfileImageLoaded] = useState(false);
+  const [viewCount, setViewCount] = useState<number | null>(null);
+  const dialogRef = useRef<HTMLDialogElement>(null);
   const t = copy[locale];
   const featuredTalk = talks[0];
+  const whatsappUrl = whatsappMessages[locale];
 
   useEffect(() => {
     const timer = window.setTimeout(() => {
@@ -139,18 +148,54 @@ export function Portfolio({ turnstileSiteKey }: { turnstileSiteKey?: string }) {
   }, []);
 
   useEffect(() => {
-    if (!selectedCertificate) return;
-    const previousOverflow = document.body.style.overflow;
-    const closeOnEscape = (event: KeyboardEvent) => {
-      if (event.key === "Escape") setSelectedCertificate(null);
-    };
-    document.body.style.overflow = "hidden";
-    window.addEventListener("keydown", closeOnEscape);
-    return () => {
-      document.body.style.overflow = previousOverflow;
-      window.removeEventListener("keydown", closeOnEscape);
-    };
+    const dialog = dialogRef.current;
+    if (!dialog) return;
+    if (selectedCertificate) {
+      if (!dialog.open) dialog.showModal();
+    } else {
+      if (dialog.open) dialog.close();
+    }
   }, [selectedCertificate]);
+
+  useEffect(() => {
+    const dialog = dialogRef.current;
+    if (!dialog) return;
+    const handleBackdropClick = (event: MouseEvent) => {
+      if (event.target === dialog) {
+        setSelectedCertificate(null);
+      }
+    };
+    dialog.addEventListener("click", handleBackdropClick);
+    return () => dialog.removeEventListener("click", handleBackdropClick);
+  }, []);
+
+  const onDialogClose = useCallback(() => setSelectedCertificate(null), []);
+
+  useEffect(() => {
+    fetch("/api/views", { method: "POST" })
+      .then((r) => r.json() as Promise<{ views: number }>)
+      .then((d) => setViewCount(d.views))
+      .catch(() => {});
+  }, []);
+
+  useEffect(() => {
+    if (!menuOpen) return;
+    const onKeyDown = (event: KeyboardEvent) => {
+      if (event.key === "Escape") setMenuOpen(false);
+    };
+    const onPointerDown = (event: PointerEvent) => {
+      const target = event.target as HTMLElement | null;
+      if (!target?.closest(".site-header")) {
+        setMenuOpen(false);
+      }
+    };
+    window.addEventListener("keydown", onKeyDown);
+    window.addEventListener("pointerdown", onPointerDown);
+    return () => {
+      window.removeEventListener("keydown", onKeyDown);
+      window.removeEventListener("pointerdown", onPointerDown);
+    };
+  }, [menuOpen]);
 
   const changeTheme = () => {
     const next = theme === "dark" ? "light" : "dark";
@@ -937,26 +982,23 @@ export function Portfolio({ turnstileSiteKey }: { turnstileSiteKey?: string }) {
         <div className="footer-bottom">
           <span>© {new Date().getFullYear()} Miguel Angel Choque Garcia</span>
           <span>{t.footerMade} 🇧🇴</span>
+          {viewCount !== null && (
+            <span className="view-counter">{viewCount.toLocaleString()}</span>
+          )}
           <a href="#inicio">
             {locale === "es" ? "Volver arriba" : "Back to top"} ↑
           </a>
         </div>
       </footer>
 
-      {selectedCertificate && (
-        <div className="modal-backdrop">
-          <button
-            className="modal-dismiss-layer"
-            type="button"
-            onClick={() => setSelectedCertificate(null)}
-            aria-label={t.close}
-          />
-          <section
-            className="certificate-modal"
-            role="dialog"
-            aria-modal="true"
-            aria-labelledby="certificate-title"
-          >
+      <dialog
+        ref={dialogRef}
+        className="certificate-dialog"
+        aria-labelledby="certificate-title"
+        onClose={onDialogClose}
+      >
+        {selectedCertificate && (
+          <div className="certificate-modal">
             <button
               className="modal-close"
               type="button"
@@ -1006,7 +1048,7 @@ export function Portfolio({ turnstileSiteKey }: { turnstileSiteKey?: string }) {
                 />
               </div>
             )}
-            {!selectedCertificate.preview && (
+            {!selectedCertificate.preview && !selectedCertificate.credentialUrl && (
               <div className="certificate-preview">
                 <span aria-hidden="true">◇</span>
                 <p>
@@ -1026,11 +1068,12 @@ export function Portfolio({ turnstileSiteKey }: { turnstileSiteKey?: string }) {
                 {locale === "es"
                   ? "Ver credencial verificada"
                   : "View verified credential"}
+                <span aria-hidden="true">↗</span>
               </a>
             )}
-          </section>
-        </div>
-      )}
+          </div>
+        )}
+      </dialog>
     </main>
   );
 }
