@@ -347,8 +347,8 @@ export const experiences = [
     period: { es: "2026 — Actualidad", en: "2026 — Present" },
     company: "Fiscalía General del Estado",
     role: {
-      es: "Ingeniero de Software & DevOps",
-      en: "Software & DevOps Engineer",
+      es: "Pasante de Ingeniería de Software y DevOps",
+      en: "Software and DevOps Engineering Intern",
     },
     category: "Cloud & DevOps",
     description: {
