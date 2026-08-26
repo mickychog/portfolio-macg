@@ -346,11 +346,14 @@ export const experiences = [
   {
     period: { es: "2026 — Actualidad", en: "2026 — Present" },
     company: "Fiscalía General del Estado",
-    role: { es: "Pasante de Ingeniería", en: "Engineering Intern" },
+    role: {
+      es: "Ingeniero de Software & DevOps",
+      en: "Software & DevOps Engineer",
+    },
     category: "Cloud & DevOps",
     description: {
-      es: "Despliegue de software, telemetría, monitoreo y automatización de soporte aplicando principios de Infrastructure as Code.",
-      en: "Software deployment, telemetry, monitoring and support automation applying Infrastructure as Code principles.",
+      es: "Desarrollo de un sistema de telemetría y observabilidad en Go para entornos Linux. Automatización de despliegues, monitoreo de infraestructura y soporte aplicando Infrastructure as Code.",
+      en: "Development of a Go-based telemetry and observability system for Linux environments. Deployment automation, infrastructure monitoring and support using IaC.",
     },
   },
   {
