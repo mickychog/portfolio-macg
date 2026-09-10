@@ -6,7 +6,6 @@ const contactSchema = z.object({
   subject: z.string().trim().min(3).max(140),
   message: z.string().trim().min(20).max(4000),
   website: z.string().max(0).optional().default(""),
-  turnstileToken: z.string().optional(),
 });
 
 const attempts = new Map<string, { count: number; resetAt: number }>();
@@ -40,26 +39,11 @@ function isRateLimited(request: Request) {
   return current.count > 4;
 }
 
-async function verifyTurnstile(token: string | undefined, request: Request) {
-  const secret = process.env.TURNSTILE_SECRET_KEY;
-  if (!secret) return true;
-  if (!token) return false;
-  const body = new FormData();
-  body.set("secret", secret);
-  body.set("response", token);
-  const ip = getClientIp(request);
-  if (ip && ip !== "unknown") body.set("remoteip", ip);
-  const response = await fetch("https://challenges.cloudflare.com/turnstile/v0/siteverify", { method: "POST", body });
-  const result = (await response.json()) as { success?: boolean };
-  return result.success === true;
-}
-
 export async function POST(request: Request) {
   if (isRateLimited(request)) return Response.json({ error: "Demasiados intentos. Inténtalo en un minuto." }, { status: 429 });
 
   const parsed = contactSchema.safeParse(await request.json().catch(() => null));
   if (!parsed.success) return Response.json({ error: "Revisa los campos del formulario." }, { status: 400 });
-  if (!(await verifyTurnstile(parsed.data.turnstileToken, request))) return Response.json({ error: "No se pudo validar la solicitud." }, { status: 400 });
 
   const apiKey = process.env.RESEND_API_KEY;
   const to = process.env.CONTACT_TO_EMAIL;

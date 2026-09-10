@@ -1,7 +1,6 @@
 "use client";
 
 import { FormEvent, useCallback, useEffect, useMemo, useRef, useState } from "react";
-import Script from "next/script";
 import Image from "next/image";
 import { FaGithub, FaLinkedin, FaWhatsapp } from "react-icons/fa";
 import {
@@ -106,7 +105,7 @@ function CardIcon({ name }: { name: string }) {
   return <Icon className="card-icon" aria-hidden="true" />;
 }
 
-export function Portfolio({ turnstileSiteKey }: { turnstileSiteKey?: string }) {
+export function Portfolio() {
   const [locale, setLocale] = useState<Locale>("es");
   const [theme, setTheme] = useState<Theme>(() =>
     typeof document !== "undefined"
@@ -230,7 +229,6 @@ export function Portfolio({ turnstileSiteKey }: { turnstileSiteKey?: string }) {
       string,
       FormDataEntryValue
     >;
-    payload.turnstileToken = payload["cf-turnstile-response"] ?? "";
     const response = await fetch("/api/contact", {
       method: "POST",
       headers: { "content-type": "application/json" },
@@ -932,19 +930,6 @@ export function Portfolio({ turnstileSiteKey }: { turnstileSiteKey?: string }) {
             autoComplete="off"
             aria-hidden="true"
           />
-          {turnstileSiteKey && (
-            <>
-              <Script
-                src="https://challenges.cloudflare.com/turnstile/v0/api.js"
-                strategy="lazyOnload"
-              />
-              <div
-                className="cf-turnstile"
-                data-sitekey={turnstileSiteKey}
-                data-theme="auto"
-              />
-            </>
-          )}
           <button
             className="primary-button has-tooltip"
             data-tooltip={
