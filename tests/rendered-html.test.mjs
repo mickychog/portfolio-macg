@@ -6,7 +6,7 @@ test("builds the portfolio with its core identity and production entrypoint", as
   const [portfolio, data] = await Promise.all([
     readFile(new URL("../app/components/Portfolio.tsx", import.meta.url), "utf8"),
     readFile(new URL("../lib/portfolio-data.ts", import.meta.url), "utf8"),
-    access(new URL("../dist/server/index.js", import.meta.url)),
+    access(new URL("../.next", import.meta.url)),
   ]);
   assert.match(portfolio, /Miguel Angel/);
   assert.match(data, /Ingeniero en Ciencias de la Computación e Ingeniero Electrónico/);

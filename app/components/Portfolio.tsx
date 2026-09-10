@@ -4,9 +4,11 @@ import { FormEvent, useCallback, useEffect, useMemo, useRef, useState } from "re
 import Image from "next/image";
 import { FaGithub, FaLinkedin, FaWhatsapp } from "react-icons/fa";
 import {
+  FaArrowUp,
   FaBrain,
   FaCertificate,
   FaChartLine,
+  FaCheck,
   FaCloud,
   FaCode,
   FaCompassDrafting,
@@ -118,7 +120,9 @@ export function Portfolio() {
   const [menuOpen, setMenuOpen] = useState(false);
   const [formStatus, setFormStatus] = useState("");
   const [profileImageLoaded, setProfileImageLoaded] = useState(false);
-  const [viewCount, setViewCount] = useState<number | null>(null);
+  const [scrollProgress, setScrollProgress] = useState(0);
+  const [showScrollTop, setShowScrollTop] = useState(false);
+  const [copiedEmail, setCopiedEmail] = useState(false);
   const dialogRef = useRef<HTMLDialogElement>(null);
   const t = copy[locale];
   const featuredTalk = talks[0];
@@ -147,6 +151,36 @@ export function Portfolio() {
   }, []);
 
   useEffect(() => {
+    let ticking = false;
+    const handleScroll = () => {
+      if (!ticking) {
+        window.requestAnimationFrame(() => {
+          const totalHeight =
+            document.documentElement.scrollHeight - window.innerHeight;
+          const currentProgress =
+            totalHeight > 0 ? window.scrollY / totalHeight : 0;
+          setScrollProgress(Math.min(Math.max(currentProgress, 0), 1));
+          setShowScrollTop(window.scrollY > 380);
+          ticking = false;
+        });
+        ticking = true;
+      }
+    };
+    window.addEventListener("scroll", handleScroll, { passive: true });
+    return () => window.removeEventListener("scroll", handleScroll);
+  }, []);
+
+  const copyEmail = async () => {
+    try {
+      await navigator.clipboard.writeText("mickychog@gmail.com");
+      setCopiedEmail(true);
+      setTimeout(() => setCopiedEmail(false), 2200);
+    } catch {
+      window.location.href = "mailto:mickychog@gmail.com";
+    }
+  };
+
+  useEffect(() => {
     const dialog = dialogRef.current;
     if (!dialog) return;
     if (selectedCertificate) {
@@ -169,13 +203,6 @@ export function Portfolio() {
   }, []);
 
   const onDialogClose = useCallback(() => setSelectedCertificate(null), []);
-
-  useEffect(() => {
-    fetch("/api/views", { method: "POST" })
-      .then((r) => r.json() as Promise<{ views: number }>)
-      .then((d) => setViewCount(d.views))
-      .catch(() => {});
-  }, []);
 
   useEffect(() => {
     if (!menuOpen) return;
@@ -259,6 +286,11 @@ export function Portfolio() {
   return (
     <main>
       <MotionEffects />
+      <div
+        className="scroll-progress-bar"
+        style={{ transform: `scaleX(${scrollProgress})` }}
+        aria-hidden="true"
+      />
       <div className="ambient-background" aria-hidden="true">
         <span className="ambient-orb orb-a" />
         <span className="ambient-orb orb-b" />
@@ -385,14 +417,28 @@ export function Portfolio() {
               <FaLinkedin className="brand-icon" aria-hidden="true" />
               LinkedIn
             </a>
-            <a
-              className="has-tooltip"
-              data-tooltip={t.tooltips.email}
-              href="mailto:mickychog@gmail.com"
+            <button
+              className={`copy-email-btn has-tooltip ${copiedEmail ? "is-copied" : ""}`}
+              data-tooltip={
+                copiedEmail
+                  ? locale === "es"
+                    ? "¡Copiado!"
+                    : "Copied!"
+                  : locale === "es"
+                    ? "Copiar correo"
+                    : "Copy email"
+              }
+              type="button"
+              onClick={copyEmail}
+              aria-label={copiedEmail ? "Email copied" : "Copy email"}
             >
-              <SiGmail className="brand-icon" aria-hidden="true" />
-              Gmail
-            </a>
+              {copiedEmail ? (
+                <FaCheck aria-hidden="true" />
+              ) : (
+                <SiGmail className="brand-icon" aria-hidden="true" />
+              )}
+              <span>{copiedEmail ? (locale === "es" ? "¡Copiado!" : "Copied!") : "Gmail"}</span>
+            </button>
           </div>
         </div>
         <div
@@ -876,14 +922,28 @@ export function Portfolio() {
           <h2 id="contact-title">{t.contactTitle}</h2>
           <p className="section-lead">{t.contactLead}</p>
           <div className="contact-links" data-reveal>
-            <a
-              className="has-tooltip"
-              data-tooltip={t.tooltips.email}
-              href="mailto:mickychog@gmail.com"
+            <button
+              className={`copy-email-btn has-tooltip ${copiedEmail ? "is-copied" : ""}`}
+              data-tooltip={
+                copiedEmail
+                  ? locale === "es"
+                    ? "¡Copiado!"
+                    : "Copied!"
+                  : locale === "es"
+                    ? "Copiar al portapapeles"
+                    : "Copy to clipboard"
+              }
+              type="button"
+              onClick={copyEmail}
+              aria-label={copiedEmail ? "Email copied" : "Copy email"}
             >
-              <SiGmail className="brand-icon" aria-hidden="true" />
-              mickychog@gmail.com
-            </a>
+              {copiedEmail ? (
+                <FaCheck aria-hidden="true" />
+              ) : (
+                <SiGmail className="brand-icon" aria-hidden="true" />
+              )}
+              <span>{copiedEmail ? (locale === "es" ? "¡Copiado!" : "Copied!") : "mickychog@gmail.com"}</span>
+            </button>
             <a
               className="has-tooltip"
               data-tooltip={t.tooltips.linkedin}
@@ -957,7 +1017,7 @@ export function Portfolio() {
               Choque Garcia
             </h2>
             <p>{t.footerRole}</p>
-            <small>{t.footerLine}</small>
+            <span>{t.footerLine}</span>
           </div>
           <div className="footer-group">
             <strong>{t.footerSocial}</strong>
@@ -998,14 +1058,21 @@ export function Portfolio() {
         <div className="footer-bottom">
           <span>© {new Date().getFullYear()} Miguel Angel Choque Garcia</span>
           <span>{t.footerMade} 🇧🇴</span>
-          {viewCount !== null && (
-            <span className="view-counter">{viewCount.toLocaleString()}</span>
-          )}
           <a href="#inicio">
             {locale === "es" ? "Volver arriba" : "Back to top"} ↑
           </a>
         </div>
       </footer>
+
+      <button
+        className={`scroll-top-button has-tooltip ${showScrollTop ? "is-visible" : ""}`}
+        data-tooltip={locale === "es" ? "Volver arriba" : "Back to top"}
+        type="button"
+        onClick={() => window.scrollTo({ top: 0, behavior: "smooth" })}
+        aria-label={locale === "es" ? "Volver arriba" : "Back to top"}
+      >
+        <FaArrowUp aria-hidden="true" />
+      </button>
 
       <dialog
         ref={dialogRef}

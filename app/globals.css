@@ -316,3 +316,82 @@ textarea { resize: vertical; }.contact-form .primary-button { justify-self: star
 @media (hover: none), (pointer: coarse) { .cursor-glow, .has-tooltip::after { display: none; } }
 
 @media (prefers-reduced-motion: reduce) { html { scroll-behavior: auto; }*, *::before, *::after { animation-duration: .01ms !important; animation-iteration-count: 1 !important; transition-duration: .01ms !important; }[data-reveal] { opacity: 1; transform: none; }.cursor-glow { display: none; } }
+
+/* Scroll Progress Bar */
+.scroll-progress-bar {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 3px;
+  background: linear-gradient(90deg, var(--primary), var(--accent), #6477ff);
+  transform-origin: left;
+  z-index: 1000;
+  pointer-events: none;
+  transition: transform 0.08s ease-out;
+}
+
+/* Floating Scroll to Top Button */
+.scroll-top-button {
+  position: fixed;
+  bottom: 28px;
+  right: 28px;
+  width: 44px;
+  height: 44px;
+  border-radius: 50%;
+  border: 1px solid var(--line);
+  background: color-mix(in srgb, var(--surface) 80%, transparent);
+  backdrop-filter: blur(14px);
+  -webkit-backdrop-filter: blur(14px);
+  color: var(--foreground);
+  display: grid;
+  place-items: center;
+  font-size: 15px;
+  cursor: pointer;
+  z-index: 99;
+  opacity: 0;
+  transform: translateY(18px) scale(0.85);
+  pointer-events: none;
+  transition: opacity 0.28s cubic-bezier(0.16, 1, 0.3, 1), transform 0.28s cubic-bezier(0.16, 1, 0.3, 1), border-color 0.2s ease, background-color 0.2s ease, box-shadow 0.2s ease;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.28);
+}
+.scroll-top-button.is-visible {
+  opacity: 1;
+  transform: translateY(0) scale(1);
+  pointer-events: auto;
+}
+.scroll-top-button:hover {
+  transform: translateY(-3px) scale(1.08);
+  border-color: var(--primary);
+  background: color-mix(in srgb, var(--primary) 18%, var(--surface));
+  box-shadow: 0 14px 34px color-mix(in srgb, var(--primary) 28%, transparent);
+  color: #fff;
+}
+
+/* Copy Email Button */
+.copy-email-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 7px;
+  background: transparent;
+  border: 1px solid var(--line);
+  border-radius: 999px;
+  padding: 6px 13px;
+  color: var(--foreground);
+  font-size: 12px;
+  font-weight: 550;
+  cursor: pointer;
+  transition: border-color 0.2s ease, background-color 0.2s ease, color 0.2s ease, transform 0.18s ease;
+}
+.copy-email-btn svg { width: 13px; height: 13px; }
+.copy-email-btn:hover {
+  border-color: var(--primary);
+  background: color-mix(in srgb, var(--primary) 10%, transparent);
+  transform: translateY(-1px);
+}
+.copy-email-btn.is-copied {
+  border-color: #22c55e;
+  background: color-mix(in srgb, #22c55e 14%, transparent);
+  color: #22c55e;
+}
+
