@@ -432,6 +432,90 @@ export const education = [
  */
 export const certificates: Certificate[] = [
   {
+    title: "Artificial Intelligence Fundamentals",
+    titleEn: "Artificial Intelligence Fundamentals",
+    organization: "IBM SkillsBuild",
+    period: "Septiembre 2025",
+    periodEn: "September 2025",
+    summary:
+      "Principios de inteligencia artificial, machine learning, deep learning, NLP y ética aplicada en sistemas inteligentes.",
+    summaryEn:
+      "Artificial intelligence fundamentals, machine learning, deep learning, NLP, and ethical considerations in AI systems.",
+    tags: ["AI", "Machine Learning", "IBM"],
+    category: "IA y datos",
+    credentialUrl: "https://www.credly.com/badges/6ad2774f-533f-452f-bab3-5c755ea8a357",
+  },
+  {
+    title: "Agile Explorer",
+    titleEn: "Agile Explorer",
+    organization: "IBM SkillsBuild",
+    period: "Septiembre 2025",
+    periodEn: "September 2025",
+    summary:
+      "Mentalidad ágil, diseño iterativo, tableros visuales Kanban y mejora continua en proyectos de desarrollo de software.",
+    summaryEn:
+      "Agile mindset, iterative design, Kanban visual boards, and continuous improvement in software development projects.",
+    tags: ["Agile", "Kanban", "IBM"],
+    category: "Full Stack",
+    credentialUrl: "https://www.credly.com/badges/6f7cd18d-a999-43cc-a274-f0609c6be00f",
+  },
+  {
+    title: "AWS Educate Introduction to Generative AI - Training Badge",
+    titleEn: "AWS Educate Introduction to Generative AI - Training Badge",
+    organization: "Amazon Web Services (AWS)",
+    period: "Junio 2025",
+    periodEn: "June 2025",
+    summary:
+      "Conceptos fundamentales de IA generativa, modelos base (Foundational Models), LLMs y casos de uso prácticos en la nube de AWS.",
+    summaryEn:
+      "Foundational concepts of Generative AI, foundation models, LLMs, and practical cloud use cases on AWS.",
+    tags: ["AWS", "Generative AI", "Cloud"],
+    category: "IA y datos",
+    credentialUrl: "https://www.credly.com/badges/3c4b67d1-5e87-4a5f-ae22-779ed6083fc3",
+  },
+  {
+    title: "Scrum Foundation Learner 2025",
+    titleEn: "Scrum Foundation Learner 2025",
+    organization: "CertiProf",
+    period: "Febrero 2025",
+    periodEn: "February 2025",
+    summary:
+      "Estructura del marco Scrum, roles (Product Owner, Scrum Master, Developers), ceremonias, artefactos y entregas incrementales.",
+    summaryEn:
+      "Scrum framework structure, roles (Product Owner, Scrum Master, Developers), ceremonies, artifacts, and incremental delivery.",
+    tags: ["Scrum", "Agile", "CertiProf"],
+    category: "Full Stack",
+    credentialUrl: "https://www.credly.com/badges/e4c4cc17-d870-47ae-a82c-922a8323ed68",
+  },
+  {
+    title: "Ethical Hacker",
+    titleEn: "Ethical Hacker",
+    organization: "Cisco Networking Academy",
+    period: "Noviembre 2024",
+    periodEn: "November 2024",
+    summary:
+      "Metodologías de hacking ético, análisis de vulnerabilidades, pruebas de penetración, vectores de ataque y aseguramiento de sistemas.",
+    summaryEn:
+      "Ethical hacking methodologies, vulnerability assessment, penetration testing, attack vectors, and systems hardening.",
+    tags: ["Ethical Hacking", "Cybersecurity", "Cisco"],
+    category: "Cloud & DevOps",
+    credentialUrl: "https://www.credly.com/badges/64a36457-71b1-4a9c-a34d-70661670345a",
+  },
+  {
+    title: "Introduction to Cybersecurity",
+    titleEn: "Introduction to Cybersecurity",
+    organization: "Cisco Networking Academy",
+    period: "Septiembre 2024",
+    periodEn: "September 2024",
+    summary:
+      "Fundamentos de seguridad de la información, confidencialidad, integridad y disponibilidad (tríada CIA), y mitigación de amenazas.",
+    summaryEn:
+      "Information security essentials, confidentiality, integrity and availability (CIA triad), and threat mitigation.",
+    tags: ["Cybersecurity", "Networks", "Cisco"],
+    category: "Cloud & DevOps",
+    credentialUrl: "https://www.credly.com/badges/8e26bd13-4bd9-4ea1-9f13-15791059b0c8",
+  },
+  {
     title: "Especialización Backend Java",
     titleEn: "Java Backend Specialization",
     organization: "Oracle ONE · Alura Latam",
@@ -443,35 +527,11 @@ export const certificates: Certificate[] = [
       "Java, Spring Boot 3, JPA/Hibernate, REST API security, JUnit and Mockito.",
     tags: ["Java", "Spring Boot", "Testing"],
     category: "Backend",
-    credentialUrl: "https://www.credly.com/users/miguel-angel-choque-garcia",
-  },
-  {
-    title: "Ethical Hacker e Introduction to Cybersecurity",
-    titleEn: "Ethical Hacker and Introduction to Cybersecurity",
-    organization: "Cisco Networking Academy",
-    period: "Sep — Nov 2024",
-    periodEn: "Sep — Nov 2024",
-    summary:
-      "Vectores de ataque, protección de redes, fundamentos CIA y seguridad en APIs.",
-    summaryEn:
-      "Attack vectors, network protection, CIA fundamentals and API security.",
-    tags: ["Cybersecurity", "Networks"],
-    category: "Cloud & DevOps",
-    credentialUrl: "https://www.credly.com/users/miguel-angel-choque-garcia",
-  },
-  {
-    title: "Cloud Computing e Inteligencia Artificial",
-    titleEn: "Cloud Computing and Artificial Intelligence",
-    organization: "AWS · IBM SkillsBuild",
-    period: "Jun — Sep 2025",
-    periodEn: "Jun — Sep 2025",
-    summary:
-      "Fundamentos de LLMs, IA generativa en la nube, machine learning y ética en IA.",
-    summaryEn:
-      "LLM foundations, cloud generative AI, machine learning and AI ethics.",
-    tags: ["AWS", "Generative AI", "ML"],
-    category: "IA y datos",
-    credentialUrl: "https://www.credly.com/users/miguel-angel-choque-garcia",
+    credentialUrl: "https://drive.google.com/file/d/1cqeTAE8nhmXtXz5z8k5Iv7mJGqhrpv9k/view?usp=sharing",
+    preview: {
+      type: "embed",
+      src: "https://drive.google.com/file/d/1cqeTAE8nhmXtXz5z8k5Iv7mJGqhrpv9k/preview",
+    },
   },
   {
     title: "Desarrollo Full Stack PHP",

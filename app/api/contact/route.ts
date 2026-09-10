@@ -11,8 +11,20 @@ const contactSchema = z.object({
 
 const attempts = new Map<string, { count: number; resetAt: number }>();
 
+function getClientIp(request: Request): string {
+  const forwarded = request.headers.get("x-forwarded-for");
+  if (forwarded) {
+    return forwarded.split(",")[0].trim();
+  }
+  return (
+    request.headers.get("x-real-ip") ??
+    request.headers.get("cf-connecting-ip") ??
+    "unknown"
+  );
+}
+
 function isRateLimited(request: Request) {
-  const key = request.headers.get("cf-connecting-ip") ?? request.headers.get("x-forwarded-for") ?? "unknown";
+  const key = getClientIp(request);
   const now = Date.now();
   if (attempts.size > 256) {
     for (const [ip, entry] of attempts) {
@@ -35,8 +47,8 @@ async function verifyTurnstile(token: string | undefined, request: Request) {
   const body = new FormData();
   body.set("secret", secret);
   body.set("response", token);
-  const ip = request.headers.get("cf-connecting-ip");
-  if (ip) body.set("remoteip", ip);
+  const ip = getClientIp(request);
+  if (ip && ip !== "unknown") body.set("remoteip", ip);
   const response = await fetch("https://challenges.cloudflare.com/turnstile/v0/siteverify", { method: "POST", body });
   const result = (await response.json()) as { success?: boolean };
   return result.success === true;
@@ -68,7 +80,11 @@ export async function POST(request: Request) {
       html: `<div style="font-family:Arial,sans-serif;color:#0a1623"><h2>Nuevo mensaje desde tu portafolio</h2><p><strong>Nombre:</strong> ${escapeHtml(parsed.data.name)}</p><p><strong>Correo:</strong> ${escapeHtml(parsed.data.email)}</p><p><strong>Asunto:</strong> ${escapeHtml(parsed.data.subject)}</p><hr><p style="white-space:pre-wrap">${escapeHtml(parsed.data.message)}</p></div>`,
     }),
   });
-  if (!response.ok) return Response.json({ error: "El servicio de correo no respondió. Inténtalo nuevamente." }, { status: 502 });
+  if (!response.ok) {
+    const errorData = await response.text().catch(() => "Unknown error");
+    console.error("Resend API error:", response.status, errorData);
+    return Response.json({ error: "El servicio de correo no respondió. Inténtalo nuevamente." }, { status: 502 });
+  }
   return Response.json({ message: "Mensaje enviado. Gracias por contactarme." });
 }
 

@@ -454,7 +454,13 @@ export function Portfolio({ turnstileSiteKey }: { turnstileSiteKey?: string }) {
             const MetricIcon = visual.icon;
 
             return (
-              <div className="metric-card" data-tone={visual.tone} key={label}>
+              <div
+                className="metric-card"
+                data-tone={visual.tone}
+                key={label}
+                data-reveal
+                data-delay={String((index % 4) + 1)}
+              >
                 <span className="metric-icon" aria-hidden="true">
                   <MetricIcon />
                 </span>
@@ -479,8 +485,13 @@ export function Portfolio({ turnstileSiteKey }: { turnstileSiteKey?: string }) {
           </div>
         </div>
         <div className="skill-grid">
-          {skillGroups.map((group) => (
-            <article className="skill-card" key={group.title.es} data-reveal>
+          {skillGroups.map((group, index) => (
+            <article
+              className="skill-card"
+              key={group.title.es}
+              data-reveal
+              data-delay={String((index % 3) + 1)}
+            >
               <div className="skill-card-head">
                 <span>
                   <CardIcon name={group.icon} />
@@ -498,8 +509,8 @@ export function Portfolio({ turnstileSiteKey }: { turnstileSiteKey?: string }) {
             </article>
           ))}
         </div>
-        <div className="secondary-skills" data-reveal>
-          <article>
+        <div className="secondary-skills">
+          <article data-reveal data-delay="1">
             <header>
               <CardIcon name="tools" />
               <span className="category">{t.alsoWork}</span>
@@ -518,7 +529,7 @@ export function Portfolio({ turnstileSiteKey }: { turnstileSiteKey?: string }) {
               ))}
             </div>
           </article>
-          <article>
+          <article data-reveal data-delay="2">
             <header>
               <CardIcon name="teamwork" />
               <span className="category">{t.teamwork}</span>
@@ -561,8 +572,12 @@ export function Portfolio({ turnstileSiteKey }: { turnstileSiteKey?: string }) {
         <div className="contribution-block">
           <h3 data-reveal>{t.contributionTitle}</h3>
           <div className="contribution-grid">
-            {contributions.map((item) => (
-              <article key={item.title.es} data-reveal>
+            {contributions.map((item, index) => (
+              <article
+                key={item.title.es}
+                data-reveal
+                data-delay={String((index % 3) + 1)}
+              >
                 <span>
                   <CardIcon name={item.icon} />
                 </span>
@@ -575,8 +590,12 @@ export function Portfolio({ turnstileSiteKey }: { turnstileSiteKey?: string }) {
         <div className="approach-block" data-reveal>
           <h3>{t.approachTitle}</h3>
           <ol>
-            {approach.map((step) => (
-              <li key={step.n}>
+            {approach.map((step, index) => (
+              <li
+                key={step.n}
+                data-reveal
+                data-delay={String(index + 1)}
+              >
                 <div className="approach-step-head">
                   <span className="approach-step-number">{step.n}</span>
                   <CardIcon name={step.icon} />
@@ -605,6 +624,7 @@ export function Portfolio({ turnstileSiteKey }: { turnstileSiteKey?: string }) {
         </div>
         <div
           className="filter-tabs"
+          data-reveal
           role="group"
           aria-label={locale === "es" ? "Filtrar proyectos" : "Filter projects"}
         >
@@ -620,8 +640,13 @@ export function Portfolio({ turnstileSiteKey }: { turnstileSiteKey?: string }) {
           ))}
         </div>
         <div className="project-grid">
-          {filteredProjects.map((project) => (
-            <article className="project-card" key={project.name} data-reveal>
+          {filteredProjects.map((project, index) => (
+            <article
+              className="project-card"
+              key={project.name}
+              data-reveal
+              data-delay={String((index % 3) + 1)}
+            >
               <div className="card-corner-icon">
                 <CardIcon
                   name={
@@ -713,11 +738,12 @@ export function Portfolio({ turnstileSiteKey }: { turnstileSiteKey?: string }) {
           {t.educationTitle}
         </h2>
         <div className="education-grid">
-          {education.map((item) => (
+          {education.map((item, index) => (
             <article
               className="education-card"
               key={item.degree.es}
               data-reveal
+              data-delay={String((index % 2) + 1)}
             >
               <div className="card-heading-icon">
                 <CardIcon name="education" />
@@ -735,6 +761,7 @@ export function Portfolio({ turnstileSiteKey }: { turnstileSiteKey?: string }) {
               className="certificate-card"
               key={`${certificate.title}-${index}`}
               data-reveal
+              data-delay={String((index % 3) + 1)}
             >
               <div>
                 <div className="card-heading-icon">
@@ -780,7 +807,7 @@ export function Portfolio({ turnstileSiteKey }: { turnstileSiteKey?: string }) {
               {t.talksCta} ↗
             </a>
           </div>
-          <article className="talk-feature">
+          <article className="talk-feature" data-reveal>
             <Image
               className="talk-feature-image"
               src={featuredTalk.image}
@@ -820,8 +847,12 @@ export function Portfolio({ turnstileSiteKey }: { turnstileSiteKey?: string }) {
         </div>
         <p className="talk-more-label" data-reveal>{t.talksMore}</p>
         <div className="talk-grid">
-          {talkTopics.map((topic) => (
-            <article key={topic.title.es} data-reveal>
+          {talkTopics.map((topic, index) => (
+            <article
+              key={topic.title.es}
+              data-reveal
+              data-delay={String((index % 3) + 1)}
+            >
               <span>
                 <CardIcon name={topic.icon} />
               </span>
@@ -846,7 +877,7 @@ export function Portfolio({ turnstileSiteKey }: { turnstileSiteKey?: string }) {
           </p>
           <h2 id="contact-title">{t.contactTitle}</h2>
           <p className="section-lead">{t.contactLead}</p>
-          <div className="contact-links">
+          <div className="contact-links" data-reveal>
             <a
               className="has-tooltip"
               data-tooltip={t.tooltips.email}
